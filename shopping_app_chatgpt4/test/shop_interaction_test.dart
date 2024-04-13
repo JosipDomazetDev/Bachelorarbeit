@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shopping_app_chatgpt4/cart_page.dart';
 import 'package:shopping_app_chatgpt4/cart_provider.dart';
 import 'package:shopping_app_chatgpt4/product.dart';
+import 'package:shopping_app_chatgpt4/product_provider.dart';
 
 void main() {
   testWidgets('Clicking "Remove" button removes product from cart',
@@ -13,8 +14,13 @@ void main() {
     cartProvider.addProduct(
         Product(id: '1', name: 'Test Product', imageUrl: 'url', price: 9.99));
 
-    await tester.pumpWidget(Provider<CartProvider>(
-      create: (_) => cartProvider,
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) {
+          return cartProvider;
+        }),
+      ],
       child: MaterialApp(home: CartPage()),
     ));
 
@@ -37,8 +43,13 @@ void main() {
     cartProvider.addProduct(
         Product(id: '2', name: 'Product 2', imageUrl: 'url2', price: 30.00));
 
-    await tester.pumpWidget(Provider<CartProvider>(
-      create: (_) => cartProvider,
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) {
+          return cartProvider;
+        }),
+      ],
       child: MaterialApp(home: CartPage()),
     ));
 
@@ -49,7 +60,13 @@ void main() {
 
   testWidgets('Clicking "Buy" button triggers snackbar with "Purchased"',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: CartPage()));
+        await tester.pumpWidget(MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (context) => ProductProvider()),
+            ChangeNotifierProvider(create: (context) => CartProvider()),
+          ],
+          child: MaterialApp(home: CartPage()),
+        ));
 
     // Simulate clicking the buy button
     await tester.tap(find.text('Buy'));

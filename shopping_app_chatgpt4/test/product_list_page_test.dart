@@ -9,12 +9,13 @@ void main() {
   testWidgets(
       'Verify that the product list is properly displayed in a ListView',
       (WidgetTester tester) async {
-    await tester.pumpWidget(
-      Provider<ProductProvider>(
-        create: (_) => ProductProvider(),
-        child: MaterialApp(home: ProductListPage()),
-      ),
-    );
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+      ],
+      child: MaterialApp(home: ProductListPage()),
+    ));
 
     // Verify all products are loaded into the ListView
     expect(find.byType(ListView), findsOneWidget);
@@ -23,12 +24,13 @@ void main() {
 
   testWidgets('Check the layout of each item in the product list',
       (WidgetTester tester) async {
-    await tester.pumpWidget(
-      Provider<ProductProvider>(
-        create: (_) => ProductProvider(),
-        child: MaterialApp(home: ProductListPage()),
-      ),
-    );
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+      ],
+      child: MaterialApp(home: ProductListPage()),
+    ));
 
     // Verify the layout of list items
     expect(find.byType(Image), findsWidgets);

@@ -517,3 +517,142 @@ class MyApp extends StatelessWidget {
 ### Expected Outcome
 
 With this setup, users can add products to the shopping cart by clicking the "Add" button next to each product. Once a product is added, the UI updates dynamically: the "Add" button changes to a green checkmark icon, indicating the product is in the cart. This solution uses the Provider package efficiently to manage state and update the UI in response to changes, adhering to the requirements provided.
+
+====================================================================================================
+#5 Prompt:
+Task: Adding Header Title and Cart Button to the AppBar in the Product List View
+
+Objective: Enhance the product list view in your Flutter app by adding a header title in the AppBar and a cart button at the end of the AppBar.
+
+Requirements:
+
+Header Title:
+Display a title/header at the top of the AppBar in the product list view.
+
+Cart Button:
+Place a cart button at the end of the AppBar in the product list view.
+
+Functionality:
+
+Opening the Cart:
+Implement functionality so that clicking the cart button opens the cart view.
+
+Expected Outcome:
+The AppBar in the product list view should contain a header title at the top and a cart button at the end.
+Clicking the cart button should open the cart view.
+
+#5 Answer:
+
+To enhance the product list view by adding a header title and a cart button in the AppBar, and implement functionality to open the cart view upon clicking the cart button, follow these detailed steps.
+
+### Step 1: Update AppBar in Product List Page
+
+First, modify the `AppBar` in your `ProductListPage` to include a title and a cart button. This button will navigate to the cart view when clicked.
+
+#### File: `product_list_page.dart`
+
+Update the `AppBar` as follows:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'product_provider.dart';
+import 'cart_provider.dart';
+import 'cart_page.dart'; // Assuming you have a CartPage widget defined
+
+class ProductListPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Products"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CartPage()),
+              );
+            },
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: Provider.of<ProductProvider>(context).products.length,
+        itemBuilder: (ctx, i) => _buildProductItem(ctx, i),
+      ),
+    );
+  }
+
+  Widget _buildProductItem(BuildContext context, int index) {
+    final product = Provider.of<ProductProvider>(context).products[index];
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    return ListTile(
+      leading: Image.network(product.imageUrl),
+      title: Text(product.name),
+      trailing: cartProvider.isProductInCart(product.id)
+          ? Icon(Icons.check_circle, color: Colors.green)
+          : ElevatedButton(
+              onPressed: () {
+                cartProvider.addProduct(product);
+              },
+              child: Text('Add'),
+            ),
+    );
+  }
+}
+```
+
+### Step 2: Define Cart Page
+
+Make sure you have a `CartPage` widget to navigate to when the cart button is clicked. This page will display the products added to the cart.
+
+#### File: `cart_page.dart`
+
+Here’s a basic setup for the cart page:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'cart_provider.dart';
+
+class CartPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Your Cart"),
+      ),
+      body: ListView.builder(
+        itemCount: cart.items.length,
+        itemBuilder: (context, index) {
+          var productId = cart.items.keys.elementAt(index);
+          var product = cart.items[productId];
+          return ListTile(
+            title: Text(product!.name),
+            leading: Image.network(product.imageUrl),
+            trailing: Text('1'), // Example quantity, modify as needed
+          );
+        },
+      ),
+    );
+  }
+}
+```
+
+### Expected Outcome
+
+With these modifications:
+
+- The `AppBar` in your product list view now contains a title "Products" and a cart button on the right.
+- Clicking the cart button navigates the user to the `CartPage`, which displays the items added to the cart.
+
+This setup enhances the navigation and usability of your Flutter e-commerce app, making it more intuitive and functional for end users.
+
+

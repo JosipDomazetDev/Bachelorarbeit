@@ -803,3 +803,144 @@ Implement functionality so that clicking the "Buy" button displays a snackbar co
 Expected Outcome:
 The shopping cart view should display the total price of all products below the product list, along with a "Buy" button.
 Clicking the "Buy" button should trigger a snackbar with the message "Purchased".
+
+#7 Answer:
+To enhance your shopping cart view in Flutter by displaying the total price of all items and providing a "Buy" button, and to show a snackbar upon clicking the "Buy" button, follow these steps:
+
+### Step 1: Update Cart Provider with Total Price Calculation
+
+Add functionality to the `CartProvider` to calculate the total price of all items in the cart.
+
+#### File: `cart_provider.dart`
+
+Update your provider to include a method for calculating the total price:
+
+```dart
+import 'package:flutter/material.dart';
+import 'product.dart';
+
+class CartProvider with ChangeNotifier {
+  Map<String, Product> _items = {};
+
+  Map<String, Product> get items => _items;
+
+  double get totalPrice => _items.values.fold(0.0, (sum, item) => sum + item.price);
+
+  void addProduct(Product product) {
+    if (_items.containsKey(product.id)) {
+      return;
+    } else {
+      _items.putIfAbsent(product.id, () => product);
+      notifyListeners();
+    }
+  }
+
+  void removeProduct(String productId) {
+    if (_items.containsKey(productId)) {
+      _items.remove(productId);
+      notifyListeners();
+    }
+  }
+}
+```
+
+Ensure your `Product` class has a `price` attribute for this to work.
+
+### Step 2: Modify the Cart Page
+
+Include the total price display and "Buy" button below the product list in your `CartPage`.
+
+#### File: `cart_page.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'cart_provider.dart';
+
+class CartPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Your Cart"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: cartProvider.items.length,
+              itemBuilder: (context, index) {
+                var productId = cartProvider.items.keys.elementAt(index);
+                var product = cartProvider.items[productId];
+                return ListTile(
+                  leading: Icon(Icons.shopping_cart),
+                  title: Text(product!.name),
+                  trailing: IconButton(
+                    icon: Icon(Icons.remove_circle_outline),
+                    onPressed: () => cartProvider.removeProduct(productId),
+                  ),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text('Total: \$${cartProvider.totalPrice.toStringAsFixed(2)}',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Purchased')),
+              );
+            },
+            child: Text('Buy'),
+          )
+        ],
+      ),
+    );
+  }
+}
+```
+
+### Expected Outcome
+
+With the above implementation:
+
+- Your shopping cart view now displays the total price of all products in a text widget at the bottom of the product list.
+- Below the total price, there is a "Buy" button.
+- Clicking the "Buy" button triggers a snackbar with the message "Purchased", confirming the user action.
+
+This setup fulfills the requirements by providing a functional and informative shopping cart experience, enhancing user interaction and feedback within the application.
+
+====================================================================================================
+
+#8 Prompt:
+Task: Writing Unit Tests for User Authentication
+
+Objective: Develop unit tests to ensure that users can log in with a username and password, and that successful login always navigates to the next view without logic verification.
+
+Requirements:
+
+Test Scenarios:
+
+Write unit tests to verify that users can successfully log in with valid username and password combinations.
+Ensure that the login process navigates to the next view without performing logic verification.
+
+Input Validation:
+
+Include test cases to handle invalid input scenarios, such as empty username or password fields.
+Navigation Testing:
+
+Verify that navigation to the next view occurs after successful login, without any logic verification checks.
+Expected Outcome:
+
+Unit tests should confirm that users can log in with valid credentials and navigate to the next view.
+Tests should cover various scenarios including valid and invalid input.

@@ -1014,3 +1014,153 @@ This will ensure that your login process meets the specified requirements of nav
 ====================================================================================================
 
 #T9 Prompt:
+Task: Generating Test Cases for Product Listing and Adding to Cart Features
+
+Objective: Develop test cases to ensure the correct functionality of displaying a list of products in a ListView and enabling users to add products to the shopping cart in your Flutter app.
+
+Test Case Formulation:
+
+Displaying Product List:
+Scenario: Verify that the product list is properly displayed in a ListView.
+Expected Outcome: Ensure that all products are visible and scrollable within the ListView.
+
+Product List Entry Layout:
+Scenario: Check the layout of each item in the product list.
+Expected Outcome: Verify that each list item displays a product image on the left, followed by the product name, and an "Add" button at the end.
+
+Adding Product to Cart:
+Scenario: Test the functionality of adding a product to the shopping cart.
+Expected Outcome: Ensure that clicking the "Add" button for a product successfully adds the product to the cart.
+
+Updating UI After Adding to Cart:
+Scenario: After adding a product to the cart.
+Expected Outcome: Verify that the "Add" button is replaced by an icon to indicate successful addition to the cart.
+
+#T9 Answer:
+
+To ensure the proper functionality of displaying a list of products and enabling users to add products to the shopping cart in your Flutter app, we can create detailed test cases. These will use the `flutter_test` package to verify UI components and interactions. Here’s how you could write these test cases:
+
+### Test Case 1: Displaying Product List
+
+**Objective**: Verify that the product list is properly displayed in a ListView.
+
+- **Test Setup**: Populate a `Provider` with a mock list of products.
+- **Action**: Render the `ProductListPage` in a test environment.
+- **Expected Outcome**: All products are visible and scrollable within the ListView.
+
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'product_provider.dart';
+import 'product_list_page.dart';
+
+void main() {
+  testWidgets('Verify that the product list is properly displayed in a ListView', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      Provider<ProductProvider>(
+        create: (_) => ProductProvider(),
+        child: MaterialApp(home: ProductListPage()),
+      ),
+    );
+
+    // Verify all products are loaded into the ListView
+    expect(find.byType(ListView), findsOneWidget);
+    expect(find.byType(ListTile), findsWidgets);
+  });
+}
+```
+
+### Test Case 2: Product List Entry Layout
+
+**Objective**: Check the layout of each item in the product list.
+
+- **Test Setup**: As above, ensure the provider and product list page are set up.
+- **Action**: Render the page and inspect each list item.
+- **Expected Outcome**: Each list item displays a product image on the left, followed by the product name, and an "Add" button at the end.
+
+```dart
+void main() {
+  testWidgets('Check the layout of each item in the product list', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      Provider<ProductProvider>(
+        create: (_) => ProductProvider(),
+        child: MaterialApp(home: ProductListPage()),
+      ),
+    );
+
+    // Verify the layout of list items
+    expect(find.byType(Image), findsWidgets);
+    expect(find.text('Add'), findsWidgets);
+    expect(find.byType(Text), findsWidgets); // Check for product names
+  });
+}
+```
+
+### Test Case 3: Adding Product to Cart
+
+**Objective**: Test the functionality of adding a product to the shopping cart.
+
+- **Test Setup**: Mock both the `ProductProvider` and `CartProvider`.
+- **Action**: Tap the "Add" button for a product.
+- **Expected Outcome**: The product is successfully added to the cart.
+
+```dart
+void main() {
+  testWidgets('Test adding a product to the shopping cart', (WidgetTester tester) async {
+    final cartProvider = CartProvider();
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ProductProvider()),
+          ChangeNotifierProvider(create: (_) => cartProvider),
+        ],
+        child: MaterialApp(home: ProductListPage()),
+      ),
+    );
+
+    // Simulate tapping the 'Add' button
+    await tester.tap(find.text('Add').first);
+    await tester.pump();
+
+    // Check if product is added
+    expect(cartProvider.items.length, 1);
+  });
+}
+```
+
+### Test Case 4: Updating UI After Adding to Cart
+
+**Objective**: Verify the UI updates correctly after a product is added to the cart.
+
+- **Test Setup**: As above, with providers mocked and UI ready.
+- **Action**: Tap "Add" and check UI changes.
+- **Expected Outcome**: "Add" button changes to an icon indicating the product was added.
+
+```dart
+void main() {
+  testWidgets('Verify UI updates after adding a product to the cart', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ProductProvider()),
+          ChangeNotifierProvider(create: (_) => CartProvider()),
+        ],
+        child: MaterialApp(home: ProductListPage()),
+      ),
+    );
+
+    // Tap 'Add' and pump to update the UI
+    await tester.tap(find.text('Add').first);
+    await tester.pump();
+
+    // Verify UI change
+    expect(find.byIcon(Icons.check_circle), findsOneWidget);
+  });
+}
+```
+
+These test cases ensure that the product listing and cart functionalities are working as expected, from displaying products to updating the UI after interactions.
+
+====================================================================================================
+#T10 Prompt:

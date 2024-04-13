@@ -16,6 +16,13 @@ class CartProvider with ChangeNotifier {
     }
   }
 
+  void removeProduct(String productId) {
+    if (_items.containsKey(productId)) {
+      _items.remove(productId);
+      notifyListeners();
+    }
+  }
+
   bool isProductInCart(String productId) {
     return _items.containsKey(productId);
   }

@@ -655,4 +655,126 @@ With these modifications:
 
 This setup enhances the navigation and usability of your Flutter e-commerce app, making it more intuitive and functional for end users.
 
+====================================================================================================
+
+#6 Prompt:
+Task: Implementing the Shopping Cart View
+
+Objective: Create a view in your Flutter app to display the products added to the shopping cart. Each product should be shown with an icon and product name on the left, and a "Remove" button with an icon at the end of the row.
+
+Requirements:
+
+Shopping Cart View:
+
+Develop a new screen to show the products added to the shopping cart.
+Display each product with an icon and product name on the left side of the row.
+Include a "Remove" button with an icon at the end of each row to allow users to remove products from the cart.
+
+Back Button:
+Add a "Back" button to the AppBar of the shopping cart view, enabling users to return to the overall product view.
+Functionality:
+
+Removing Products:
+Implement functionality so that clicking the "Remove" button removes the corresponding product from the shopping cart.
+
+Expected Outcome:
+The shopping cart view should display all the products added to the cart, with each product showing an icon, name, and a "Remove" button.
+Clicking the "Remove" button should remove the respective product from the cart.
+The AppBar in the shopping cart view should include a "Back" button allowing users to return to the overall product view.
+
+#6 Answer:
+To create a shopping cart view that displays products added to the cart and allows users to remove items via a "Remove" button, follow these steps to set up the cart view and implement the required functionality using Flutter and the Provider package.
+
+### Step 1: Update Cart Provider
+
+Modify the `CartProvider` to include functionality for removing products from the cart.
+
+#### File: `cart_provider.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'product.dart';
+
+class CartProvider with ChangeNotifier {
+  Map<String, Product> _items = {};
+
+  Map<String, Product> get items => _items;
+
+  void addProduct(Product product) {
+    if (_items.containsKey(product.id)) {
+      // Product is already in cart, this case can be expanded to increase quantity
+      return;
+    } else {
+      _items.putIfAbsent(product.id, () => product);
+      notifyListeners();
+    }
+  }
+
+  void removeProduct(String productId) {
+    if (_items.containsKey(productId)) {
+      _items.remove(productId);
+      notifyListeners();
+    }
+  }
+
+  bool isProductInCart(String productId) {
+    return _items.containsKey(productId);
+  }
+}
+```
+
+### Step 2: Define the Cart Page
+
+The `CartPage` will display a list of products added to the cart with a "Remove" button next to each item.
+
+#### File: `cart_page.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'cart_provider.dart';
+
+class CartPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Your Cart"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      body: ListView.builder(
+        itemCount: cartProvider.items.length,
+        itemBuilder: (context, index) {
+          var productId = cartProvider.items.keys.elementAt(index);
+          var product = cartProvider.items[productId];
+          return ListTile(
+            leading: Icon(Icons.shopping_cart), // Change to product-specific icons if needed
+            title: Text(product!.name),
+            trailing: IconButton(
+              icon: Icon(Icons.remove_circle_outline),
+              onPressed: () => cartProvider.removeProduct(productId),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+```
+
+### Expected Outcome
+
+With this setup, your shopping cart view will display each product with:
+
+- An icon and the product name on the left.
+- A "Remove" button with an icon at the end of each row.
+
+Clicking the "Remove" button will remove the respective product from the cart, and the list will update accordingly due to the Provider's `notifyListeners` method being called. The "Back" button in the AppBar allows users to return to the product list view, enhancing navigation flow in your app.
+
+This implementation fulfills all the requirements of the task, ensuring a functional and user-friendly shopping cart view.
 

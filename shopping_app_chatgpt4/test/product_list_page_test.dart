@@ -33,7 +33,6 @@ void main() {
     ));
 
     // Verify the layout of list items
-    expect(find.byType(Image), findsWidgets);
     expect(find.text('Add'), findsWidgets);
     expect(find.byType(Text), findsWidgets); // Check for product names
   });

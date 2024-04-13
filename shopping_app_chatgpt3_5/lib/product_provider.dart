@@ -7,11 +7,13 @@ class ProductProvider with ChangeNotifier {
       id: '1',
       name: 'iPhone 12',
       imageUrl: 'https://picsum.photos/seed/phone/200/200',
+      price: 10
     ),
     Product(
       id: '2',
       name: 'Samsung Galaxy S21',
       imageUrl: 'https://picsum.photos/seed/phone/200/200',
+      price: 20
     ),
     // Add more products as needed
   ];

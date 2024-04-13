@@ -1,4 +1,4 @@
-# shopping_app_chatgpt4
+# shopping_app_chatgpt3_5
 
 A new Flutter project.
 

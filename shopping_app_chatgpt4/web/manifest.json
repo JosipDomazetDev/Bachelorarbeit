@@ -1,6 +1,6 @@
 {
-    "name": "shopping_app_chatgpt4",
-    "short_name": "shopping_app_chatgpt4",
+    "name": "shopping_app_chatgpt3_5",
+    "short_name": "shopping_app_chatgpt3_5",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

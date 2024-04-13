@@ -6,6 +6,8 @@ class CartProvider with ChangeNotifier {
 
   Map<String, Product> get items => _items;
 
+  double get totalPrice => _items.values.fold(0.0, (sum, item) => sum + item.price);
+
   void addProduct(Product product) {
     if (_items.containsKey(product.id)) {
       // Product is already in cart, this case can be expanded to increase quantity

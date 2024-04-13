@@ -15,20 +15,40 @@ class CartPage extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: ListView.builder(
-        itemCount: cartProvider.items.length,
-        itemBuilder: (context, index) {
-          var productId = cartProvider.items.keys.elementAt(index);
-          var product = cartProvider.items[productId];
-          return ListTile(
-            leading: Icon(Icons.shopping_cart), // Change to product-specific icons if needed
-            title: Text(product!.name),
-            trailing: IconButton(
-              icon: Icon(Icons.remove_circle_outline),
-              onPressed: () => cartProvider.removeProduct(productId),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: cartProvider.items.length,
+              itemBuilder: (context, index) {
+                var productId = cartProvider.items.keys.elementAt(index);
+                var product = cartProvider.items[productId];
+                return ListTile(
+                  leading: Icon(Icons.shopping_cart),
+                  title: Text(product!.name),
+                  trailing: IconButton(
+                    icon: Icon(Icons.remove_circle_outline),
+                    onPressed: () => cartProvider.removeProduct(productId),
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text('Total: \$${cartProvider.totalPrice.toStringAsFixed(2)}',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Purchased')),
+              );
+            },
+            child: Text('Buy'),
+          )
+        ],
       ),
     );
   }

@@ -778,3 +778,28 @@ Clicking the "Remove" button will remove the respective product from the cart, a
 
 This implementation fulfills all the requirements of the task, ensuring a functional and user-friendly shopping cart view.
 
+
+====================================================================================================
+#7 Prompt:
+
+Task: Displaying Total Price and Buy Button in the Shopping Cart View
+
+Objective: Enhance the shopping cart view in your Flutter app by displaying the total price of all products below the product list, along with a "Buy" button.
+
+Requirements:
+
+Total Price and Buy Button:
+Show the total price of all products below the product list in the shopping cart view.
+Include a "Buy" button below the total price.
+
+Snackbar Display:
+Upon clicking the "Buy" button, display a snackbar with the message "Purchased".
+
+Functionality:
+
+Buy Button Action:
+Implement functionality so that clicking the "Buy" button displays a snackbar confirming the purchase.
+
+Expected Outcome:
+The shopping cart view should display the total price of all products below the product list, along with a "Buy" button.
+Clicking the "Buy" button should trigger a snackbar with the message "Purchased".

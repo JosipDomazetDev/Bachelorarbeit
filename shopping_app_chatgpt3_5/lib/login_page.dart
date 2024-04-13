@@ -31,8 +31,8 @@ class LoginPage extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: "Password",
                 // Use obscureText to hide password input
-                obscureText: true,
               ),
+              obscureText: true,
             ),
             SizedBox(height: 20),
             ElevatedButton(

@@ -36,7 +36,12 @@ class ProductListPage extends StatelessWidget {
     final cartProvider = Provider.of<CartProvider>(context);
 
     return ListTile(
-      leading: Image.network(product.imageUrl),
+      leading: Image.network(
+        product.imageUrl,
+        errorBuilder: (context, error, stackTrace) {
+          return Text("Image not found");
+        },
+      ),
       title: Text(product.name),
       trailing: cartProvider.isProductInCart(product.id)
           ? Icon(Icons.check_circle, color: Colors.green)

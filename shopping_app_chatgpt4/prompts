@@ -1272,3 +1272,113 @@ These test cases ensure that the AppBar functions correctly with navigation and 
 ====================================================================================================
 
 #T11 Prompt:
+Objective: Develop test cases to ensure the correct functionality of removing items from the shopping cart and handling the purchase process in your Flutter app.
+
+Test Case Formulation:
+
+Testing Removal of Items from Shopping Cart:
+Scenario: Verify the functionality of removing a product from the shopping cart.
+Expected Outcome: Ensure that clicking the "Remove" button for a product removes it from the cart.
+
+Testing Display of Total Price and Buy Button:
+Scenario: Check the display of the total price of all products and the presence of the "Buy" button below the product list in the shopping cart view.
+Expected Outcome: Verify that the total price of all products is accurately displayed, and there is a "Buy" button available.
+
+Testing Purchase Process:
+Scenario: Test the purchase process by clicking the "Buy" button.
+Expected Outcome: Ensure that clicking the "Buy" button triggers a snackbar displaying the message "Purchased".
+
+#T11 Answer:
+To effectively test the functionality of removing items from the shopping cart, displaying the total price along with a "Buy" button, and handling the purchase process, we'll create detailed unit tests using the `flutter_test` framework. Here’s how these test cases can be structured:
+
+### Test Case 1: Testing Removal of Items from Shopping Cart
+
+**Objective**: Verify the functionality of removing a product from the shopping cart.
+
+- **Test Setup**: Populate the cart with a product, render the cart view, and simulate a tap on the "Remove" button.
+- **Action**: Tap the "Remove" button for a product.
+- **Expected Outcome**: The product is removed from the cart.
+
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'cart_provider.dart';
+import 'cart_page.dart';
+
+void main() {
+  testWidgets('Clicking "Remove" button removes product from cart', (WidgetTester tester) async {
+    // Setup a CartProvider with one item
+    final cartProvider = CartProvider();
+    cartProvider.addProduct(Product(id: '1', name: 'Test Product', imageUrl: 'url', price: 9.99));
+
+    await tester.pumpWidget(Provider<CartProvider>(
+      create: (_) => cartProvider,
+      child: MaterialApp(home: CartPage()),
+    ));
+
+    // Verify the product is initially in the cart
+    expect(find.text('Test Product'), findsOneWidget);
+
+    // Act - remove the product
+    await tester.tap(find.byIcon(Icons.remove_circle_outline));
+    await tester.pumpAndSettle(); // Allow UI to update
+
+    // Assert - product is removed
+    expect(find.text('Test Product'), findsNothing);
+  });
+}
+```
+
+### Test Case 2: Testing Display of Total Price and Buy Button
+
+**Objective**: Check the display of the total price of all products and the presence of the "Buy" button below the product list in the shopping cart view.
+
+- **Test Setup**: Populate the cart with products, render the cart view.
+- **Action**: None, just visually inspect.
+- **Expected Outcome**: The total price is accurately displayed along with a "Buy" button.
+
+```dart
+void main() {
+  testWidgets('Total price and "Buy" button are displayed correctly', (WidgetTester tester) async {
+    final cartProvider = CartProvider();
+    cartProvider.addProduct(Product(id: '1', name: 'Product 1', imageUrl: 'url1', price: 20.00));
+    cartProvider.addProduct(Product(id: '2', name: 'Product 2', imageUrl: 'url2', price: 30.00));
+
+    await tester.pumpWidget(Provider<CartProvider>(
+      create: (_) => cartProvider,
+      child: MaterialApp(home: CartPage()),
+    ));
+
+    // Verify total price and buy button
+    expect(find.text('Total: \$50.00'), findsOneWidget);
+    expect(find.text('Buy'), findsOneWidget);
+  });
+}
+```
+
+### Test Case 3: Testing Purchase Process
+
+**Objective**: Test the purchase process by clicking the "Buy" button.
+
+- **Test Setup**: Render the cart view with a "Buy" button.
+- **Action**: Tap the "Buy" button.
+- **Expected Outcome**: A snackbar displaying the message "Purchased" is triggered.
+
+```dart
+void main() {
+  testWidgets('Clicking "Buy" button triggers snackbar with "Purchased"', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: CartPage()));
+
+    // Simulate clicking the buy button
+    await tester.tap(find.text('Buy'));
+    await tester.pump(); // Trigger a frame for the snackbar to show up
+
+    // Verify snackbar shows up with the correct text
+    expect(find.text('Purchased'), findsOneWidget);
+    expect(find.byType(SnackBar), findsOneWidget);
+  });
+}
+```
+
+These test cases ensure that removing items from the cart, displaying the total price and buy button, and handling the purchase process are all functioning correctly, providing a robust foundation for your Flutter app's shopping cart feature.

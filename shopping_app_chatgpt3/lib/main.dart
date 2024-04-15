@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => LoginScreen(),
           '/productListing': (context) => ProductListingScreen(),
-          '/cart': (context) => CartScreen(), // Add the route for the cart screen
+          '/cart': (context) => CartScreen(),
+          // Add the route for the cart screen
         },
       ),
     );

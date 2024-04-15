@@ -12,6 +12,11 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void removeProductFromCart(Product product) {
+    _cartItems.remove(product);
+    notifyListeners();
+  }
+
   bool isProductInCart(Product product) {
     return _cartItems.contains(product);
   }

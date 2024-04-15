@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app_chatgpt3/providers/cart_provider.dart';
 import 'package:shopping_app_chatgpt3/providers/product_provider.dart';
+import 'package:shopping_app_chatgpt3/screens/cart_screen.dart';
 import 'package:shopping_app_chatgpt3/screens/login_screen.dart';
 import 'package:shopping_app_chatgpt3/screens/product_listing_screen.dart';
 
@@ -16,7 +17,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
-        // Provide the cart provider
       ],
       child: MaterialApp(
         title: 'Your App Name',
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => LoginScreen(),
           '/productListing': (context) => ProductListingScreen(),
+          '/cart': (context) => CartScreen(), // Add the route for the cart screen
         },
       ),
     );

@@ -10,6 +10,15 @@ class ProductListingScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Product Listing'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.pushNamed(
+                  context, '/cart'); // Navigate to the cart view
+            },
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: products.length,

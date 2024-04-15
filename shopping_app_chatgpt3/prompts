@@ -1056,6 +1056,66 @@ Similarly, you can write test cases for the other scenarios by interacting with 
 
 #T10 Prompt:
 
+Objective: Develop test cases to ensure the correct functionality of displaying a title and a shopping cart button in the AppBar, as well as managing the shopping cart view in your Flutter app.
+
+Test Case Formulation:
+
+Testing AppBar Title:
+Scenario: Verify the presence and correctness of the title in the AppBar.
+Expected Outcome: Ensure that the AppBar at the top of the product list view contains the expected title.
+
+Testing Shopping Cart Button in AppBar:
+Scenario: Check the presence and functionality of the shopping cart button in the AppBar.
+Expected Outcome: Verify that the AppBar at the top of the product list view contains a shopping cart button at the end, and clicking it opens the shopping cart view.
+
+Testing Shopping Cart View Layout:
+Scenario: Ensure that the shopping cart view displays added products correctly.
+Expected Outcome: Verify that each product in the shopping cart view shows an icon and product name on the left, followed by a "Remove" button with an icon at the end of the row.
+
+Testing Back Button in AppBar of Shopping Cart View:
+Scenario: Check the presence and functionality of the back button in the AppBar of the shopping cart view.
+Expected Outcome: Ensure that the AppBar in the shopping cart view contains a back button allowing users to return to the overall product view.
+
+
+#T10 Answer:
+
+Here are the test cases formulated for testing the functionality of displaying a title and a shopping cart button in the AppBar, as well as managing the shopping cart view in your Flutter app:
+
+1. **Testing AppBar Title:**
+   - **Scenario:** Verify the presence and correctness of the title in the AppBar.
+   - **Expected Outcome:** Ensure that the AppBar at the top of the product list view contains the expected title.
+
+2. **Testing Shopping Cart Button in AppBar:**
+   - **Scenario:** Check the presence and functionality of the shopping cart button in the AppBar.
+   - **Expected Outcome:** Verify that the AppBar at the top of the product list view contains a shopping cart button at the end, and clicking it opens the shopping cart view.
+
+3. **Testing Shopping Cart View Layout:**
+   - **Scenario:** Ensure that the shopping cart view displays added products correctly.
+   - **Expected Outcome:** Verify that each product in the shopping cart view shows an icon and product name on the left, followed by a "Remove" button with an icon at the end of the row.
+
+4. **Testing Back Button in AppBar of Shopping Cart View:**
+   - **Scenario:** Check the presence and functionality of the back button in the AppBar of the shopping cart view.
+   - **Expected Outcome:** Ensure that the AppBar in the shopping cart view contains a back button allowing users to return to the overall product view.
+
+To implement these test cases, you would typically use Flutter's testing framework along with the `flutter_test` package. Each test case would involve setting up the necessary widgets, interacting with the UI, and making assertions to verify the expected outcomes.
+
+For example, here's how you could write a test case for the first scenario:
+
+```dart
+testWidgets('AppBar title is correct', (WidgetTester tester) async {
+  // Build the widget tree
+  await tester.pumpWidget(MyApp());
+
+  // Verify the presence and correctness of the title in the AppBar
+  expect(find.text('Product Listing'), findsOneWidget);
+});
+```
+
+Similarly, you can write test cases for the other scenarios by interacting with the UI and making appropriate assertions. These tests will ensure the correct functionality of displaying the title and shopping cart button in the AppBar, as well as managing the shopping cart view in your app.
+
+====================================================================================================
+
+#T11 Prompt:
 
 
 

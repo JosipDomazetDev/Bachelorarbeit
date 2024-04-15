@@ -177,3 +177,153 @@ class NextView extends StatelessWidget {
 ================================================================================================================================================================================
 
 #3 Prompt:
+Task: Displaying a List of Products in a ListView
+
+Objective: Implement a feature to display a list of products in a scrollable list view within your Flutter app.
+
+Requirements:
+
+Product List Interface:
+Create a screen to display a list of products.
+
+List Item Layout:
+Design each list item to show a product image on the left, followed by the product name.
+Include an "Add" button at the end of each list item.
+
+Functionality:
+Simulate retrieving the product data to populate the list but the list itself is hardcoded.
+Use Provider package for state management to handle the product list.
+
+Expected Outcome:
+A screen displaying a scrollable list of products, with each item showing a product image, name, and an "Add" button at the end.
+
+#3 Answer:
+## Building Product Listing with Provider and ListView
+
+Here's how to implement a product list view with Provider for state management:
+
+**1. Setting Up the Product Model:**
+
+* Create a new Dart file named `product_model.dart`.
+* Define a class named `Product` with properties like `id` (for uniqueness), `imageUrl`, `name`, and potentially `price` (if needed).
+
+**2. Creating the Product Provider:**
+
+* Create a new Dart file named `product_provider.dart`.
+* Import necessary packages including `provider`.
+* Define a class named `ProductListProvider` extending `ChangeNotifier`.
+* Inside `ProductListProvider`, create a private list variable to hold the product data (`List<Product>`).
+* Implement methods to:
+    * Add a product to the list (`addProduct(Product product)`)
+    * Notify listeners when the list changes (`notifyListeners()` after adding a product).
+* Define a static instance of `ProductListProvider` accessible throughout the app (e.g., using a getter).
+
+**3. Building the Product List Screen:**
+
+* Create a new Dart file named `product_list_screen.dart`.
+* Import necessary packages and `ProductListProvider`.
+* Define a stateful widget class named `ProductListScreen`.
+* Inside `ProductListScreen`, use `Consumer` widget from Provider to access the `ProductListProvider` instance.
+
+**4. Building the ListView:**
+
+* In the `build` method of `ProductListScreen`, use a `Scaffold` widget.
+* Within the body, access the product list from the provider using `Provider.of<ProductListProvider>(context).productList`.
+* Utilize a `ListView.builder` widget to iterate through the product list.
+
+**5. Designing the List Item:**
+
+* Inside the `itemBuilder` function of `ListView.builder`, return a widget representing each list item (e.g., `ListTile`).
+* Use a `Row` widget to structure the list item layout:
+    * Display the product image using `Image.asset` widget.
+    * Display the product name using a `Text` widget.
+    * Add an `IconButton` with an "Add" icon at the end of the row.
+
+**Here's an example code breakdown (replace with your actual image paths):**
+
+**product_model.dart:**
+
+```Dart
+class Product {
+  final int id;
+  final String imageUrl;
+  final String name;
+  final double price; // Optional, add if needed
+
+  Product({
+    required this.id,
+    required this.imageUrl,
+    required this.name,
+    this.price = 0.0, // Set default price if not provided
+  });
+}
+```
+
+**product_provider.dart:**
+
+```Dart
+import 'package:flutter/foundation.dart';
+
+class ProductListProvider extends ChangeNotifier {
+  final List<Product> _productList = [
+    Product(id: 1, imageUrl: 'assets/images/product1.jpg', name: 'Product 1'),
+    Product(id: 2, imageUrl: 'assets/images/product2.jpg', name: 'Product 2'),
+    // Add more products to the list
+  ];
+
+  List<Product> get productList => _productList;
+
+  void addProduct(Product product) {
+    _productList.add(product);
+    notifyListeners();
+  }
+
+  static final ProductListProvider instance = ProductListProvider();
+}
+```
+
+**product_list_screen.dart:**
+
+```Dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'product_model.dart';
+import 'product_provider.dart';
+
+class ProductListScreen extends StatefulWidget {
+  @override
+  _ProductListScreenState createState() => _ProductListScreenState();
+}
+
+class _ProductListScreenState extends State<ProductListScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final productList = Provider.of<ProductListProvider>(context).productList;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Product List'),
+      ),
+      body: ListView.builder(
+        itemCount: productList.length,
+        itemBuilder: (context, index) {
+          final product = productList[index];
+          return ListTile(
+            leading: Image.asset(product.imageUrl),
+            title: Text(product.name),
+            trailing: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                // Simulate adding to cart (can be extended later)
+                print('Adding product ${product.name} to cart');
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+================================================================================================================================================================================
+
+#4 Prompt:

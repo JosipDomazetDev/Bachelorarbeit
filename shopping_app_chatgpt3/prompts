@@ -990,7 +990,72 @@ TextField(
 By writing this unit test, you ensure that users can log in with valid credentials and that successful login always navigates to the next view without logic verification.
 
 ====================================================================================================
+
 #T9 Prompt:
+
+Task: Generating Test Cases for Product Listing and Adding to Cart Features
+
+Objective: Develop test cases to ensure the correct functionality of displaying a list of products in a ListView and enabling users to add products to the shopping cart in your Flutter app.
+
+Test Case Formulation:
+
+Displaying Product List:
+Scenario: Verify that the product list is properly displayed in a ListView.
+Expected Outcome: Ensure that all products are visible and scrollable within the ListView.
+
+Product List Entry Layout:
+Scenario: Check the layout of each item in the product list.
+Expected Outcome: Verify that each list item displays a product image on the left, followed by the product name, and an "Add" button at the end.
+
+Adding Product to Cart:
+Scenario: Test the functionality of adding a product to the shopping cart.
+Expected Outcome: Ensure that clicking the "Add" button for a product successfully adds the product to the cart.
+
+Updating UI After Adding to Cart:
+Scenario: After adding a product to the cart.
+Expected Outcome: Verify that the "Add" button is replaced by an icon to indicate successful addition to the cart.
+
+#T9 Answer:
+
+Here are the test cases formulated for the product listing and adding to cart features in your Flutter app:
+
+1. **Displaying Product List:**
+   - **Scenario:** Verify that the product list is properly displayed in a ListView.
+   - **Expected Outcome:** Ensure that all products are visible and scrollable within the ListView.
+
+2. **Product List Entry Layout:**
+   - **Scenario:** Check the layout of each item in the product list.
+   - **Expected Outcome:** Verify that each list item displays a product image on the left, followed by the product name, and an "Add" button at the end.
+
+3. **Adding Product to Cart:**
+   - **Scenario:** Test the functionality of adding a product to the shopping cart.
+   - **Expected Outcome:** Ensure that clicking the "Add" button for a product successfully adds the product to the cart.
+
+4. **Updating UI After Adding to Cart:**
+   - **Scenario:** After adding a product to the cart.
+   - **Expected Outcome:** Verify that the "Add" button is replaced by an icon to indicate successful addition to the cart.
+
+To implement these test cases, you would typically use Flutter's testing framework along with the `flutter_test` package. Each test case would involve setting up the necessary widgets, interacting with the UI, and making assertions to verify the expected outcomes.
+
+For example, here's how you could write a test case for the first scenario:
+
+```dart
+testWidgets('Product list is properly displayed in ListView', (WidgetTester tester) async {
+  // Build the widget tree
+  await tester.pumpWidget(MyApp());
+
+  // Verify that all products are visible and scrollable within the ListView
+  expect(find.byType(ListView), findsOneWidget);
+  expect(find.byType(ListTile), findsNWidgets(products.length)); // Assuming 'products' is a list of test products
+});
+```
+
+Similarly, you can write test cases for the other scenarios by interacting with the UI and making appropriate assertions. These tests will ensure the correct functionality of your product listing and adding to cart features.
+
+====================================================================================================
+
+#T10 Prompt:
+
 
 
 

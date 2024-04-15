@@ -7,7 +7,7 @@ class Product {
 }
 
 List<Product> products = [
-  Product(id: 1, name: "Product 1", imageUrl: "url_to_image_1"),
-  Product(id: 2, name: "Product 2", imageUrl: "url_to_image_2"),
+  Product(id: 1, name: "Product 1", imageUrl: "https://picsum.photos/seed/phone/200/200"),
+  Product(id: 2, name: "Product 2", imageUrl: "https://picsum.photos/seed/phone/200/200"),
   // Add more products as needed
 ];

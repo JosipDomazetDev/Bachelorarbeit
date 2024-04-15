@@ -763,6 +763,160 @@ Now, the shopping cart view displays all the products added to the cart, with ea
 
 #7 Prompt:
 
+Task: Displaying Total Price and Buy Button in the Shopping Cart View
+
+Objective: Enhance the shopping cart view in your Flutter app by displaying the total price of all products below the product list, along with a "Buy" button.
+
+Requirements:
+
+Total Price and Buy Button:
+Show the total price of all products below the product list in the shopping cart view.
+Include a "Buy" button below the total price.
+
+Snackbar Display:
+Upon clicking the "Buy" button, display a snackbar with the message "Purchased".
+
+Functionality:
+
+Buy Button Action:
+Implement functionality so that clicking the "Buy" button displays a snackbar confirming the purchase.
+
+Expected Outcome:
+The shopping cart view should display the total price of all products below the product list, along with a "Buy" button.
+Clicking the "Buy" button should trigger a snackbar with the message "Purchased".
+
+#7 Answer:
+
+To implement the display of total price and a "Buy" button in the shopping cart view, along with the functionality to show a snackbar upon clicking the "Buy" button, follow these steps:
+
+1. **Update Cart Screen:**
+   - Modify the `CartScreen` to include the total price and the "Buy" button.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:your_app_name/models/product.dart';
+import 'package:your_app_name/providers/cart_provider.dart'; // Import the cart provider
+
+class CartScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    double totalPrice = 0;
+    for (Product product in cartProvider.cartItems) {
+      totalPrice += product.price; // Assuming each product has a 'price' property
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Shopping Cart'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back to the product listing view
+          },
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: cartProvider.cartItems.length,
+              itemBuilder: (context, index) {
+                return _buildCartItem(context, cartProvider.cartItems[index]);
+              },
+            ),
+          ),
+          Divider(), // Divider to separate the product list and the total price
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Total Price: \$${totalPrice.toStringAsFixed(2)}',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Purchased'),
+                      ),
+                    );
+                  },
+                  child: Text('Buy'),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCartItem(BuildContext context, Product product) {
+    final cartProvider = Provider.of<CartProvider>(context, listen: false); // Get the cart provider
+
+    return ListTile(
+      leading: Icon(Icons.shopping_cart), // Use any icon you want to represent the product
+      title: Text(product.name),
+      trailing: IconButton(
+        icon: Icon(Icons.remove),
+        onPressed: () {
+          cartProvider.removeProductFromCart(product); // Remove product from cart
+        },
+      ),
+    );
+  }
+}
+```
+
+2. **Set Up Navigation:**
+   - Make sure you have added the route for the cart screen in your `main.dart` file.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:your_app_name/screens/login_screen.dart';
+import 'package:your_app_name/screens/product_listing_screen.dart';
+import 'package:your_app_name/screens/cart_screen.dart'; // Import the cart screen
+import 'package:your_app_name/providers/product_provider.dart';
+import 'package:your_app_name/providers/cart_provider.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Your App Name',
+        initialRoute: '/',
+        routes: {
+          '/': (context) => LoginScreen(),
+          '/productListing': (context) => ProductListingScreen(),
+          '/cart': (context) => CartScreen(), // Add the route for the cart screen
+        },
+      ),
+    );
+  }
+}
+```
+
+Now, the shopping cart view displays the total price of all products below the product list, along with a "Buy" button. Clicking the "Buy" button triggers a snackbar with the message "Purchased".
+
+====================================================================================================
+
+#T8 Prompt:
+
 
 
 

@@ -9,6 +9,12 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
 
+    double totalPrice = 0;
+    for (Product product in cartProvider.cartItems) {
+      totalPrice +=
+          product.price; // Assuming each product has a 'price' property
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Shopping Cart'),
@@ -19,11 +25,40 @@ class CartScreen extends StatelessWidget {
           },
         ),
       ),
-      body: ListView.builder(
-        itemCount: cartProvider.cartItems.length,
-        itemBuilder: (context, index) {
-          return _buildCartItem(context, cartProvider.cartItems[index]);
-        },
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: cartProvider.cartItems.length,
+              itemBuilder: (context, index) {
+                return _buildCartItem(context, cartProvider.cartItems[index]);
+              },
+            ),
+          ),
+          Divider(), // Divider to separate the product list and the total price
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Total Price: \$${totalPrice.toStringAsFixed(2)}',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Purchased'),
+                      ),
+                    );
+                  },
+                  child: Text('Buy'),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

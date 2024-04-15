@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/product.dart';
+import '../providers/cart_provider.dart';
 
 class ProductListingScreen extends StatelessWidget {
   @override
@@ -19,6 +21,9 @@ class ProductListingScreen extends StatelessWidget {
   }
 
   Widget _buildProductItem(BuildContext context, Product product) {
+    final cartProvider = Provider.of<CartProvider>(context,
+        listen: false); // Get the cart provider
+
     return ListTile(
       leading: Image.network(
         product.imageUrl,
@@ -27,11 +32,19 @@ class ProductListingScreen extends StatelessWidget {
         fit: BoxFit.cover,
       ),
       title: Text(product.name),
-      trailing: ElevatedButton(
-        onPressed: () {
-          // Add functionality to add product to cart
+      trailing: Consumer<CartProvider>(
+        builder: (context, cart, _) {
+          return IconButton(
+            icon: cart.isProductInCart(product)
+                ? Icon(Icons.check)
+                : Icon(Icons.add),
+            onPressed: () {
+              if (!cart.isProductInCart(product)) {
+                cart.addProductToCart(product);
+              }
+            },
+          );
         },
-        child: Text('Add'),
       ),
     );
   }

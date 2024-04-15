@@ -13,10 +13,12 @@ class LoginScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
+              key: Key('usernameField'), // Add a key for the username field
               decoration: InputDecoration(labelText: 'Username'),
             ),
             SizedBox(height: 20.0),
             TextField(
+              key: Key('passwordField'), // Add a key for the password field
               decoration: InputDecoration(labelText: 'Password'),
               obscureText: true,
             ),

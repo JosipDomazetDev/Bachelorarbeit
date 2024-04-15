@@ -917,6 +917,81 @@ Now, the shopping cart view displays the total price of all products below the p
 
 #T8 Prompt:
 
+Task: Writing Unit Tests for User Authentication
+
+Objective: Develop unit tests to ensure that users can log in with a username and password, and that successful login always navigates to the next view without logic verification.
+
+Requirements:
+
+Test Scenarios:
+
+Write unit tests to verify that users can successfully log in with valid username and password combinations.
+Ensure that the login process navigates to the next view without performing logic verification.
+
+Navigation Testing:
+Verify that navigation to the next view occurs after successful login, without any logic verification checks.
+
+Expected Outcome:
+Unit tests should confirm that users can log in with valid credentials and navigate to the next view.
+
+#T8 Answer:
+
+To write unit tests for user authentication in Flutter, you can use the `flutter_test` package along with the testing utilities provided by Flutter. Here's how you can write unit tests to verify the login process:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:your_app_name/screens/login_screen.dart'; // Import your login screen
+import 'package:your_app_name/screens/product_listing_screen.dart'; // Import the next view after successful login
+
+void main() {
+  testWidgets('Successful login navigates to next view', (WidgetTester tester) async {
+    // Build the widget tree
+    await tester.pumpWidget(MaterialApp(
+      home: LoginScreen(), // Start with the login screen
+    ));
+
+    // Verify that the login screen is displayed
+    expect(find.text('Login'), findsOneWidget);
+
+    // Enter valid username and password and tap the login button
+    await tester.enterText(find.byKey(Key('usernameField')), 'valid_username');
+    await tester.enterText(find.byKey(Key('passwordField')), 'valid_password');
+    await tester.tap(find.text('Login'));
+    await tester.pump();
+
+    // Verify that navigation occurs to the next view after successful login
+    expect(find.byType(ProductListingScreen), findsOneWidget);
+  });
+}
+```
+
+In this test:
+
+- We pump the `LoginScreen` widget.
+- We verify that the login screen is displayed.
+- We simulate entering valid credentials and tapping the login button.
+- We verify that navigation occurs to the next view (`ProductListingScreen`) after successful login.
+
+Make sure to update your `LoginScreen` implementation to include keys for the username and password fields so they can be found by the test:
+
+```dart
+TextField(
+  key: Key('usernameField'), // Add a key for the username field
+  decoration: InputDecoration(labelText: 'Username'),
+),
+TextField(
+  key: Key('passwordField'), // Add a key for the password field
+  decoration: InputDecoration(labelText: 'Password'),
+  obscureText: true,
+),
+```
+
+By writing this unit test, you ensure that users can log in with valid credentials and that successful login always navigates to the next view without logic verification.
+
+====================================================================================================
+#T9 Prompt:
+
 
 
 

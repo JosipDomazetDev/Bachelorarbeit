@@ -21,7 +21,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         itemBuilder: (context, index) {
           final product = productList[index];
           return ListTile(
-            leading: Image.asset(product.imageUrl),
+            leading: Image.network(product.imageUrl),
             title: Text(product.name),
             trailing: IconButton(
               icon: Icon(Icons.add),
@@ -35,3 +35,4 @@ class _ProductListScreenState extends State<ProductListScreen> {
       ),
     );
   }
+}

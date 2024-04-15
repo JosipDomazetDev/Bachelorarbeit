@@ -3,8 +3,8 @@ import 'package:shopping_app_gemini/product_model.dart';
 
 class ProductListProvider extends ChangeNotifier {
   final List<Product> _productList = [
-    Product(id: 1, imageUrl: 'assets/images/product1.jpg', name: 'Product 1'),
-    Product(id: 2, imageUrl: 'assets/images/product2.jpg', name: 'Product 2'),
+    Product(id: 1, imageUrl: 'https://picsum.photos/seed/phone/200/200', name: 'Product 1'),
+    Product(id: 2, imageUrl: 'https://picsum.photos/seed/phone/200/200', name: 'Product 2'),
     // Add more products to the list
   ];
 

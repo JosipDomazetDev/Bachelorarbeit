@@ -1117,6 +1117,59 @@ Similarly, you can write test cases for the other scenarios by interacting with 
 
 #T11 Prompt:
 
+Objective: Develop test cases to ensure the correct functionality of removing items from the shopping cart and handling the purchase process in your Flutter app.
+
+Test Case Formulation:
+
+Testing Removal of Items from Shopping Cart:
+Scenario: Verify the functionality of removing a product from the shopping cart.
+Expected Outcome: Ensure that clicking the "Remove" button for a product removes it from the cart.
+
+Testing Display of Total Price and Buy Button:
+Scenario: Check the display of the total price of all products and the presence of the "Buy" button below the product list in the shopping cart view.
+Expected Outcome: Verify that the total price of all products is accurately displayed, and there is a "Buy" button available.
+
+Testing Purchase Process:
+Scenario: Test the purchase process by clicking the "Buy" button.
+Expected Outcome: Ensure that clicking the "Buy" button triggers a snackbar displaying the message "Purchased".
+
+#T11 Answer:
+
+Here are the test cases formulated for testing the functionality of removing items from the shopping cart and handling the purchase process in your Flutter app:
+
+1. **Testing Removal of Items from Shopping Cart:**
+   - **Scenario:** Verify the functionality of removing a product from the shopping cart.
+   - **Expected Outcome:** Ensure that clicking the "Remove" button for a product removes it from the cart.
+
+2. **Testing Display of Total Price and Buy Button:**
+   - **Scenario:** Check the display of the total price of all products and the presence of the "Buy" button below the product list in the shopping cart view.
+   - **Expected Outcome:** Verify that the total price of all products is accurately displayed, and there is a "Buy" button available.
+
+3. **Testing Purchase Process:**
+   - **Scenario:** Test the purchase process by clicking the "Buy" button.
+   - **Expected Outcome:** Ensure that clicking the "Buy" button triggers a snackbar displaying the message "Purchased".
+
+To implement these test cases, you would typically use Flutter's testing framework along with the `flutter_test` package. Each test case would involve setting up the necessary widgets, interacting with the UI, and making assertions to verify the expected outcomes.
+
+For example, here's how you could write a test case for the first scenario:
+
+```dart
+testWidgets('Remove item from shopping cart', (WidgetTester tester) async {
+  // Build the widget tree
+  await tester.pumpWidget(MyApp());
+
+  // Tap the "Remove" button for a product
+  await tester.tap(find.byIcon(Icons.remove).first);
+  await tester.pump();
+
+  // Verify that the product is removed from the cart
+  expect(find.text('Product Name'), findsNothing);
+});
+```
+
+Similarly, you can write test cases for the other scenarios by interacting with the UI and making appropriate assertions. These tests will ensure the correct functionality of removing items from the shopping cart and handling the purchase process in your app.
+
+====================================================================================================
 
 
 

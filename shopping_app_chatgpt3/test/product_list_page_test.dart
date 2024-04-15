@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 import 'package:shopping_app_chatgpt3/main.dart';
+import 'package:shopping_app_chatgpt3/models/product.dart';
 
 void main() {
   testWidgets('Product list is properly displayed in ListView',
       (WidgetTester tester) async {
     // Build the widget tree
     await tester.pumpWidget(MyApp());
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pumpAndSettle();
 
     // Verify that all products are visible and scrollable within the ListView
     expect(find.byType(ListView), findsOneWidget);

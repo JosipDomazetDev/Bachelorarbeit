@@ -3,8 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopping_app_chatgpt4/main.dart';
 
-// Create a MockNavigatorObserver
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 void main() {
   group('Login Page Tests', () {

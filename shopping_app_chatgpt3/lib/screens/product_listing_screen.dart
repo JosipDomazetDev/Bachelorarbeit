@@ -39,6 +39,9 @@ class ProductListingScreen extends StatelessWidget {
         width: 50,
         height: 50,
         fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Text("Image not found");
+        },
       ),
       title: Text(product.name),
       trailing: Consumer<CartProvider>(

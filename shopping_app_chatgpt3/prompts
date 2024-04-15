@@ -170,3 +170,162 @@ class MyApp extends StatelessWidget {
 ```
 
 With this setup, you have a simple login interface where users can enter their username and password. Upon clicking the login button, the app will navigate directly to the next view (`ProductListingScreen`) without performing any validation of the credentials.
+
+====================================================================================================
+
+#3 Prompt:
+
+Task: Displaying a List of Products in a ListView
+
+Objective: Implement a feature to display a list of products in a scrollable list view within your Flutter app.
+
+Requirements:
+
+Product List Interface:
+Create a screen to display a list of products.
+
+List Item Layout:
+Design each list item to show a product image on the left, followed by the product name.
+Include an "Add" button at the end of each list item.
+
+Functionality:
+Simulate retrieving the product data to populate the list but the list itself is hardcoded.
+Use Provider package for state management to handle the product list.
+
+Expected Outcome:
+A screen displaying a scrollable list of products, with each item showing a product image, name, and an "Add" button at the end.
+
+
+#3 Answer:
+
+To implement the feature of displaying a list of products in a scrollable ListView within your Flutter app, follow these steps:
+
+1. **Create Product Model:**
+   - Define a model class to represent a product. This will typically include properties like id, name, image URL, etc.
+   - This should be placed in the `models/` directory.
+
+```dart
+class Product {
+  final int id;
+  final String name;
+  final String imageUrl;
+
+  Product({required this.id, required this.name, required this.imageUrl});
+}
+```
+
+2. **Mock Product Data:**
+   - Create a list of hardcoded product data to simulate retrieving product information.
+
+```dart
+List<Product> products = [
+  Product(id: 1, name: "Product 1", imageUrl: "url_to_image_1"),
+  Product(id: 2, name: "Product 2", imageUrl: "url_to_image_2"),
+  // Add more products as needed
+];
+```
+
+3. **Create Product Listing Screen:**
+   - Inside the `screens/` directory, create a new file called `product_listing_screen.dart`.
+   - Implement the UI to display the list of products using a ListView.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:your_app_name/models/product.dart';
+
+class ProductListingScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Product Listing'),
+      ),
+      body: ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          return _buildProductItem(context, products[index]);
+        },
+      ),
+    );
+  }
+
+  Widget _buildProductItem(BuildContext context, Product product) {
+    return ListTile(
+      leading: Image.network(
+        product.imageUrl,
+        width: 50,
+        height: 50,
+        fit: BoxFit.cover,
+      ),
+      title: Text(product.name),
+      trailing: ElevatedButton(
+        onPressed: () {
+          // Add functionality to add product to cart
+        },
+        child: Text('Add'),
+      ),
+    );
+  }
+}
+```
+
+4. **State Management with Provider:**
+   - Use the Provider package to manage the state of the product list.
+   - Define a provider class to hold the product list and provide it to the UI.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:your_app_name/models/product.dart';
+
+class ProductProvider with ChangeNotifier {
+  List<Product> _products = [];
+
+  List<Product> get products => _products;
+
+  ProductProvider() {
+    // Initialize product list here (if required)
+    _loadProducts();
+  }
+
+  void _loadProducts() {
+    // Simulate loading product data
+    _products = products; // Use your actual product data here
+    notifyListeners();
+  }
+}
+```
+
+5. **Provide the Product Provider:**
+   - In your `main.dart`, provide the `ProductProvider` to the widget tree.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:your_app_name/screens/login_screen.dart';
+import 'package:your_app_name/screens/product_listing_screen.dart';
+import 'package:your_app_name/providers/product_provider.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => ProductProvider(),
+      child: MaterialApp(
+        title: 'Your App Name',
+        initialRoute: '/',
+        routes: {
+          '/': (context) => LoginScreen(),
+          '/productListing': (context) => ProductListingScreen(),
+        },
+      ),
+    );
+  }
+}
+```
+
+Now, when you navigate to the `ProductListingScreen`, you should see a list of products displayed in a scrollable ListView, with each item showing a product image, name, and an "Add" button at the end.

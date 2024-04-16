@@ -31,7 +31,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
         itemBuilder: (context, index) {
           final product = productList[index];
           return ListTile(
-            leading: Image.network(product.imageUrl),
+            leading: Image.network(product.imageUrl,
+              errorBuilder: (context, error, stackTrace) {
+                return const Text("Image not found");
+              },
+            ),
             title: Text(product.name),
             trailing: IconButton(
               icon: product.isAdded ? Icon(Icons.check) : Icon(Icons.add),

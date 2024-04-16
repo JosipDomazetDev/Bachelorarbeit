@@ -24,10 +24,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
             leading: Image.network(product.imageUrl),
             title: Text(product.name),
             trailing: IconButton(
-              icon: Icon(Icons.add),
+              icon: product.isAdded ? Icon(Icons.check) : Icon(Icons.add), // Conditionally display icon
               onPressed: () {
-                // Simulate adding to cart (can be extended later)
-                print('Adding product ${product.name} to cart');
+                Provider.of<ProductListProvider>(context, listen: false)
+                    .addProduct(product);
               },
             ),
           );

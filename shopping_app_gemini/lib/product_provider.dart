@@ -11,7 +11,10 @@ class ProductListProvider extends ChangeNotifier {
   List<Product> get productList => _productList;
 
   void addProduct(Product product) {
-    _productList.add(product);
+    if (!productList.contains(product)) {
+      product.isAdded = true; // Set flag if added (optional)
+      _productList.add(product);
+    }
     notifyListeners();
   }
 

@@ -3,6 +3,7 @@ class Product {
   final String imageUrl;
   final String name;
   final double price; // Optional, add if needed
+  bool isAdded = false;
 
   Product({
     required this.id,

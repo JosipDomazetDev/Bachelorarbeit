@@ -1001,4 +1001,120 @@ void main() {
 
 #T10 Prompt:
 
+Objective: Develop test cases to ensure the correct functionality of displaying a title and a shopping cart button in the AppBar, as well as managing the shopping cart view in your Flutter app.
+
+Test Case Formulation:
+
+Testing AppBar Title:
+Scenario: Verify the presence and correctness of the title in the AppBar.
+Expected Outcome: Ensure that the AppBar at the top of the product list view contains the expected title.
+
+Testing Shopping Cart Button in AppBar:
+Scenario: Check the presence and functionality of the shopping cart button in the AppBar.
+Expected Outcome: Verify that the AppBar at the top of the product list view contains a shopping cart button at the end, and clicking it opens the shopping cart view.
+
+Testing Shopping Cart View Layout:
+Scenario: Ensure that the shopping cart view displays added products correctly.
+Expected Outcome: Verify that each product in the shopping cart view shows an icon and product name on the left, followed by a "Remove" button with an icon at the end of the row.
+
+Testing Back Button in AppBar of Shopping Cart View:
+Scenario: Check the presence and functionality of the back button in the AppBar of the shopping cart view.
+Expected Outcome: Ensure that the AppBar in the shopping cart view contains a back button allowing users to return to the overall product view.
+
+#T10 Answer:
+
+## Unit Tests for AppBar, Shopping Cart, and Navigation
+
+Here's how you can write unit tests for the AppBar elements, shopping cart view layout, and navigation functionalities in your Flutter app:
+
+**1. Setting Up Test Environment:**
+
+* Create a new test directory within your project (e.g., `test`).
+* Inside the test directory, create Dart files for specific functionalities:
+    * `app_bar_test.dart` for AppBar tests.
+    * `shopping_cart_view_test.dart` for shopping cart view tests.
+
+**2. Mocking Navigation (if needed):**
+
+* Consider using `mockito` to mock the `Navigator` class if you need to isolate navigation behavior during testing (especially for the shopping cart button test).
+
+**3. Testing AppBar Title (in `app_bar_test.dart`):**
+
+* Define a test function with `test` from `flutter_test`.
+* Create a widget tester instance.
+* Pump a `MaterialApp` with your `ProductListScreen` widget.
+* Use `tester.firstWidget` or similar methods to find the `AppBar` widget.
+* Use `expect` from `flutter_test` to check the `title` property of the `AppBar`, ensuring it matches the expected title.
+
+**4. Testing Shopping Cart Button (in `app_bar_test.dart`):**
+
+* Create another test function.
+* Use the same setup as the title test.
+* Find the `IconButton` widget within the `AppBar` using tester methods.
+* Simulate a button tap using `tester.tap`.
+* If you're mocking navigation, verify that `Navigator.push` is called with the correct arguments (the shopping cart view class).
+
+**5. Testing Shopping Cart View Layout (in `shopping_cart_view_test.dart`):**
+
+* Define a test function.
+* Create a mock `ProductListProvider` with sample products.
+* Pump a `MaterialApp` with your `CartView` widget and the mock provider.
+* Use tester methods to find the rendered `ListView` within the `CartView`.
+* Verify the number of children in the `ListView` matches the number of products in the mock provider list.
+* Find a rendered `ListTile` widget and use `expect` to verify the presence of child widgets representing the product image, name, and "Remove" button.
+
+**6. Testing Back Button in Shopping Cart View (in `shopping_cart_view_test.dart`):**
+
+* Create another test function.
+* Use the same setup as the layout test.
+* Find the `AppBar` widget within the `CartView`.
+* Use tester methods to find the `IconButton` representing the back button (usually the leading widget in the `AppBar`).
+* Verify the presence of the back button icon (e.g., `Icon(Icons.arrow_back)`) using `expect`.
+
+**Here's an example breakdown for `app_bar_test.dart`:**
+
+```Dart
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
+
+// Replace with your actual files
+import 'product_list_screen.dart';
+import 'product_model.dart';
+import 'product_provider.dart';
+
+class MockProductListProvider extends Mock implements ProductListProvider {}
+
+void main() {
+  group('AppBarTest', () {
+    test('displays title in AppBar', () async {
+      final widgetTester = WidgetTester();
+
+      await widgetTester.pumpWidget(
+        MaterialApp(
+          home: ProductListScreen(),
+        ),
+      );
+
+      final appBar = widgetTester.firstWidget(find.byType(AppBar));
+      expect(appBar.title, Text('Products')); // Replace 'Products' with your expected title
+    });
+
+    // Add another test function for the shopping cart button, potentially mocking navigation using 'mockito'.
+  });
+}
+```
+
+**Remember:**
+
+* This is a basic example. You can expand the test suite to cover various scenarios like empty product lists or different button interactions.
+* Consider using a dedicated mocking framework like `mockito` for more robust testing, especially for navigation behavior.
+* Similar tests can be written for `shopping_cart_view_test.dart` to verify the layout and functionalities within the shopping cart view.
+
+================================================================================================================================================================================
+
+#T11 Prompt:
+
+
 

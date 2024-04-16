@@ -515,3 +515,135 @@ AppBar(
 ================================================================================================================================================================================
 
 #6 Prompt:
+
+Task: Implementing the Shopping Cart View
+
+Objective: Create a view in your Flutter app to display the products added to the shopping cart. Each product should be shown with an icon and product name on the left, and a "Remove" button with an icon at the end of the row.
+
+Requirements:
+
+Shopping Cart View:
+
+Develop a new screen to show the products added to the shopping cart.
+Display each product with an icon and product name on the left side of the row.
+Include a "Remove" button with an icon at the end of each row to allow users to remove products from the cart.
+
+Back Button:
+Add a "Back" button to the AppBar of the shopping cart view, enabling users to return to the overall product view.
+Functionality:
+
+Removing Products:
+Implement functionality so that clicking the "Remove" button removes the corresponding product from the shopping cart.
+
+Expected Outcome:
+The shopping cart view should display all the products added to the cart, with each product showing an icon, name, and a "Remove" button.
+Clicking the "Remove" button should remove the respective product from the cart.
+The AppBar in the shopping cart view should include a "Back" button allowing users to return to the overall product view.
+
+#6 Answer:
+
+Here's how to implement the shopping cart view with product display, removal functionality, and a back button:
+
+**1. Creating the Shopping Cart Screen:**
+
+* Create a new Dart file named `cart_view.dart`.
+* Import necessary packages and `ProductListProvider`.
+
+**2. Building the Cart View UI:**
+
+* Define a stateful widget class named `CartView`.
+* Inside the `build` method, use a `Scaffold` widget.
+
+**3. Adding Back Button:**
+
+* Set the `appBar` property of the `Scaffold` to an `AppBar` widget.
+* Within the `AppBar`, use the `leading` property to add an `IconButton` with an "arrow back" icon (`Icon(Icons.arrow_back)`) that navigates back to the product list view using `Navigator.pop(context)`.
+
+**4. Checking for Empty Cart:**
+
+* Access the product list from the `ProductListProvider` using `Provider.of<ProductListProvider>(context).productList`.
+* Before building the cart items list, check if the list is empty.
+* If empty, display a message indicating "No items in the cart".
+
+**5. Building the Cart Items List:**
+
+* If the cart has items, use a `ListView.builder` widget to iterate through the product list.
+* Inside the `itemBuilder` function, create a widget representing each cart item (e.g., `ListTile`).
+
+**6. Displaying Product Details:**
+
+* Use a `Row` widget to structure the cart item layout:
+    * Display the product image using `Image.asset`.
+    * Display the product name using a `Text` widget.
+
+**7. Adding Remove Button:**
+
+* Add an `IconButton` with a "remove" icon (`Icon(Icons.remove)`) at the end of the row.
+
+**8. Handling Remove Button Click:**
+
+* Set the `onPressed` function for the `IconButton`.
+* Inside the function, use the `ProductListProvider` to remove the corresponding product from the cart.
+* You can achieve this by filtering the product list to exclude the one being removed and updating the provider's list.
+* Notify listeners after removing the product.
+
+**Here's the code breakdown for `cart_view.dart`:**
+
+```Dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'product_model.dart';
+import 'product_provider.dart';
+
+class CartView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final productList = Provider.of<ProductListProvider>(context).productList;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Shopping Cart'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: productList.isEmpty
+          ? Center(child: Text('No items in the cart'))
+          : ListView.builder(
+              itemCount: productList.length,
+              itemBuilder: (context, index) {
+                final product = productList[index];
+                return ListTile(
+                  leading: Image.asset(product.imageUrl),
+                  title: Text(product.name),
+                  trailing: IconButton(
+                    icon: Icon(Icons.remove),
+                    onPressed: () {
+                      final provider = Provider.of<ProductListProvider>(context, listen: false);
+                      provider.productList.removeWhere((p) => p.id == product.id);
+                      provider.notifyListeners();
+                    },
+                  ),
+                );
+              },
+            ),
+    );
+  }
+}
+```
+
+**Explanation:**
+
+* We check if the cart is empty and display a message if there are no items.
+* The `IconButton` for removing a product utilizes `Provider.of` with `listen: false` to avoid unnecessary rebuilds when the cart view doesn't actively use the entire product list.
+* We filter the product list in the provider to remove the selected item and notify listeners about the change.
+
+**Remember:** This is a basic implementation. You can extend it to:
+
+* Display the total price of the cart items (if you have price information in the product model).
+* Implement a "Clear Cart" button to remove all items at once.
+
+================================================================================================================================================================================
+
+#7 Prompt:

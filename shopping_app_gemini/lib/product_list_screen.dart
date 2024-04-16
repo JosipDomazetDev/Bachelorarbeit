@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'cart_view.dart';
 import 'product_provider.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -14,7 +15,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product List'),
+        title: Text('Products'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => CartView()));
+            },
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: productList.length,
@@ -24,7 +34,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             leading: Image.network(product.imageUrl),
             title: Text(product.name),
             trailing: IconButton(
-              icon: product.isAdded ? Icon(Icons.check) : Icon(Icons.add), // Conditionally display icon
+              icon: product.isAdded ? Icon(Icons.check) : Icon(Icons.add),
               onPressed: () {
                 Provider.of<ProductListProvider>(context, listen: false)
                     .addProduct(product);

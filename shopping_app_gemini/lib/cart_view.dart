@@ -6,7 +6,7 @@ import 'product_provider.dart';
 class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final productList = Provider.of<ProductListProvider>(context).productList;
+    final productList = Provider.of<ProductListProvider>(context).cartProductList;
 
     return Scaffold(
       appBar: AppBar(
@@ -23,15 +23,14 @@ class CartView extends StatelessWidget {
               itemBuilder: (context, index) {
                 final product = productList[index];
                 return ListTile(
-                  leading: Image.asset(product.imageUrl),
+                  leading: Image.network(product.imageUrl),
                   title: Text(product.name),
                   trailing: IconButton(
                     icon: Icon(Icons.remove),
                     onPressed: () {
                       final provider = Provider.of<ProductListProvider>(context,
                           listen: false);
-                      provider.productList
-                          .removeWhere((p) => p.id == product.id);
+                      product.isAdded = false;
                       provider.notifyListeners();
                     },
                   ),

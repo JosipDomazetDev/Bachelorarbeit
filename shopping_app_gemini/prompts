@@ -647,3 +647,134 @@ class CartView extends StatelessWidget {
 ================================================================================================================================================================================
 
 #7 Prompt:
+
+Task: Displaying Total Price and Buy Button in the Shopping Cart View
+
+Objective: Enhance the shopping cart view in your Flutter app by displaying the total price of all products below the product list, along with a "Buy" button.
+
+Requirements:
+
+Total Price and Buy Button:
+Show the total price of all products below the product list in the shopping cart view.
+Include a "Buy" button below the total price.
+
+Snackbar Display:
+Upon clicking the "Buy" button, display a snackbar with the message "Purchased".
+
+Functionality:
+
+Buy Button Action:
+Implement functionality so that clicking the "Buy" button displays a snackbar confirming the purchase.
+
+Expected Outcome:
+The shopping cart view should display the total price of all products below the product list, along with a "Buy" button.
+Clicking the "Buy" button should trigger a snackbar with the message "Purchased".
+
+#7 Answer:
+
+Here's how to add total price and a "Buy" button with snackbar functionality to the shopping cart view:
+
+**1. Calculating Total Price:**
+
+* In `cart_view.dart`, define a function to calculate the total price:
+
+```Dart
+double calculateTotalPrice(List<Product> products) {
+  double totalPrice = 0.0;
+  for (var product in products) {
+    totalPrice += product.price; // Assuming price exists in the product model
+  }
+  return totalPrice;
+}
+```
+
+**2. Updating the Cart View UI:**
+
+* Modify the `build` method of `CartView` to display the total price and "Buy" button.
+* After the `ListView.builder`, add a `Container` with padding to create a section for the total price.
+
+**3. Displaying Total Price:**
+
+* Inside the `Container`, use a `Row` widget:
+    * Display a text label (e.g., "Total Price:") using a `Text` widget.
+    * Display the calculated total price using a `Text` widget, formatting it appropriately (e.g., using `NumberFormat`).
+
+**4. Adding Buy Button:**
+
+* Below the total price display, add an `ElevatedButton` widget with the label "Buy".
+
+**5. Handling Buy Button Click:**
+
+* Set the `onPressed` function for the `ElevatedButton`.
+* Inside the function, display a snackbar using `ScaffoldMessenger.of(context).showSnackBar`.
+* Set the snackbar content to a `SnackBar` widget with the text "Purchased".
+
+**Here's the updated code snippet for `cart_view.dart`:**
+
+```Dart
+double calculateTotalPrice(List<Product> products) {
+  // ... existing code to calculate total price
+}
+
+@override
+Widget build(BuildContext context) {
+  final productList = Provider.of<ProductListProvider>(context).productList;
+
+  // ... existing code for cart items list
+
+  return Scaffold(
+    // ...
+
+    body: productList.isEmpty
+        ? Center(child: Text('No items in the cart'))
+        : ListView.builder(
+            // ... existing code for cart items list
+
+          ),
+    bottomNavigationBar: Container(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Total Price:'),
+              Text(
+                NumberFormat.currency(symbol: '\$').format(calculateTotalPrice(productList)),
+              ),
+            ],
+          ),
+          SizedBox(height: 8.0),
+          ElevatedButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Purchased'),
+                ),
+              );
+            },
+            child: Text('Buy'),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+```
+
+**Explanation:**
+
+* We define a function to calculate the total price iterating through the product list and assuming a `price` property exists in the product model.
+* The cart view's UI is modified to display the total price and "Buy" button below the product list.
+* Clicking the "Buy" button triggers a snackbar with the message "Purchased" using `ScaffoldMessenger.of(context).showSnackBar`.
+
+**Note:** This is a simplified implementation. In a real scenario, you might want to:
+
+* Implement actual payment processing logic instead of just a snackbar confirmation.
+* Consider adding functionalities like quantity management for each product in the cart before purchase.
+
+================================================================================================================================================================================
+
+#T8 Prompt:
+

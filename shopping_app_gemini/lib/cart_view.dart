@@ -57,8 +57,7 @@ class CartView extends StatelessWidget {
               children: [
                 Text('Total Price:'),
                 Text(
-                  NumberFormat.currency(symbol: '\$')
-                      .format(calculateTotalPrice(productList)),
+                  calculateTotalPrice(productList).toStringAsFixed(2),
                 ),
               ],
             ),

@@ -1,37 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app_gemini/cart_view.dart';
-import 'package:shopping_app_gemini/product_model.dart';
 import 'package:shopping_app_gemini/product_provider.dart';
-
-class MockProductListProvider extends Mock implements ProductListProvider {}
 
 void main() {
   group('ShoppingCartViewTest', () {
-    test('removes product on clicking remove button', () async {
-      final mockProvider = MockProductListProvider();
-      when(mockProvider.productList).thenReturn([
-        Product(id: 1, imageUrl: 'image.jpg', name: 'Product 1', price: 10.0),
-      ]);
+    testWidgets('removes product on clicking remove button',
+        (WidgetTester tester) async {
+      var productListProvider = ProductListProvider();
+      productListProvider.addProduct(productListProvider.productList[0]);
 
-      final widgetTester = WidgetTester();
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) {
+            return productListProvider;
+          }),
+        ],
+        child: MaterialApp(home: CartView()),
+      ));
 
-      await widgetTester.pumpWidget(
-        MaterialApp(
-          home: Provider<ProductListProvider>.value(
-            value: mockProvider,
-            child: CartView(),
-          ),
-        ),
-      );
-
-      final removeButton = tester.firstWidget(find.byType(IconButton).first);
+      final removeButton = find.byType(IconButton).first;
       await tester.tap(removeButton);
+      await tester.pumpAndSettle();
 
-      verify(mockProvider.removeProduct(
-          any)); // Replace 'any' with product verification if needed
+      expect(find.text('Product 1'), findsNothing);
     });
 
     // Add similar test functions for total price, buy button, and purchase process (verifying snackbar display).

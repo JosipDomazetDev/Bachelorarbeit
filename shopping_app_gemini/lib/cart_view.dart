@@ -33,7 +33,12 @@ class CartView extends StatelessWidget {
               itemBuilder: (context, index) {
                 final product = productList[index];
                 return ListTile(
-                  leading: Image.network(product.imageUrl),
+                  leading: Image.network(
+                    product.imageUrl,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Text("Image not found");
+                    },
+                  ),
                   title: Text(product.name),
                   trailing: IconButton(
                     icon: Icon(Icons.remove),

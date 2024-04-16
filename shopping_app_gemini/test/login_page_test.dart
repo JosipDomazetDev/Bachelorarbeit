@@ -6,7 +6,7 @@ void main() {
   group('LoginPage Test', () {
     testWidgets('navigates to next view on successful login',
         (WidgetTester tester) async {
-      await tester.pumpWidget(const MyApp());
+      await tester.pumpWidget(MyApp());
 
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();

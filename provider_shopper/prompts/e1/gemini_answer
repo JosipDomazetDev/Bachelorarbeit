@@ -1,0 +1,52 @@
+The code you provided has a potential overflow issue with long product names because the `Text` widget is wrapped inside an `Expanded` widget. Let's explore some ways to fix this:
+
+**1. Using TextOverflow.ellipsis:**
+
+This is the simplest solution. You can modify the `Text` widget to use the `TextOverflow.ellipsis` property. This will cause the text to be truncated with an ellipsis (...) if it overflows the available space.
+
+```dart
+Expanded(
+  child: Text(
+    item.name,
+    style: textTheme,
+    overflow: TextOverflow.ellipsis,
+  ),
+),
+```
+
+**2. Limiting Text Length:**
+
+If you want more control over the text length, you can use the `Text` widget's `maxLines` property. This will limit the number of lines displayed and automatically add an ellipsis if the text overflows.
+
+```dart
+Expanded(
+  child: Text(
+    item.name,
+    style: textTheme,
+    maxLines: 2, // Adjust maxLines as needed
+  ),
+),
+```
+
+**3. Using Flexible instead of Expanded:**
+
+Instead of `Expanded`, you can use the `Flexible` widget. Unlike `Expanded`, `Flexible` takes a `flex` property that allows you to specify how much space the widget should occupy relative to other `Flexible` widgets within the same row. This gives you more control over the text's allocated space.
+
+```dart
+Flexible(
+  flex: 3, // Adjust flex value as needed
+  child: Text(
+    item.name,
+    style: textTheme,
+    overflow: TextOverflow.ellipsis,
+  ),
+),
+```
+
+**Choosing the right solution:**
+
+* Use `TextOverflow.ellipsis` for a simple solution where truncation is acceptable.
+* Use `maxLines` if you want to control the exact number of lines displayed.
+* Use `Flexible` for more control over the text's allocated space within the row.
+
+By implementing one of these solutions, you can ensure that long product names are displayed properly without overflowing the available space in your Flutter application.

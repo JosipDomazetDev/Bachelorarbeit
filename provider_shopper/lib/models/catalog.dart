@@ -15,7 +15,7 @@ class CatalogModel {
   static List<String> itemNames = [
     'Code Smell',
     'Control Flow',
-    'Interpreter',
+    'Long Teeext, Another Really Long Teeeeeeeeeeeeeext',
     'Recursion',
     'Sprint',
     'Heisenbug',

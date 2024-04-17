@@ -1,0 +1,40 @@
+To address the issue of the product name overflowing and being cut off, you can implement text truncation and display an ellipsis (...) at the end of the text when it exceeds a certain length. Here's how you can modify the code to achieve this:
+
+```dart
+return Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  child: Row(
+    children: [
+      AspectRatio(
+        aspectRatio: 1,
+        child: Container(
+          color: item.color,
+        ),
+      ),
+      const SizedBox(width: 24),
+      Expanded(
+        child: Text(
+          _truncateString(item.name),
+          style: textTheme,
+          overflow: TextOverflow.ellipsis, // This line ensures the text is truncated with an ellipsis
+        ),
+      ),
+      const SizedBox(width: 24),
+      _AddButton(item: item),
+    ],
+  ),
+);
+
+String _truncateString(String input) {
+  const maxLength = 20; // You can adjust this value based on your UI requirements
+  return input.length <= maxLength ? input : input.substring(0, maxLength) + '...';
+}
+```
+
+In this modified code:
+
+- The `Text` widget now has an `overflow` property set to `TextOverflow.ellipsis`, which truncates the text with an ellipsis (...) when it overflows.
+- A custom function `_truncateString` is added to truncate the product name if its length exceeds a certain threshold (in this case, 20 characters). You can adjust this threshold as needed for your UI.
+- The `_truncateString` function checks if the length of the input string is greater than the maximum length allowed. If it is, it truncates the string and appends an ellipsis. Otherwise, it returns the original string.
+
+

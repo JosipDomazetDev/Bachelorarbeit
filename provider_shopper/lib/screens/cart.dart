@@ -26,7 +26,7 @@ class MyCart extends StatelessWidget {
                 child: Column(
                   children: [
                     const Text('Select an item.'),
-                    _CartList(),
+                    Expanded(child: _CartList()),
                   ],
                 ),
               ),

@@ -1,0 +1,33 @@
+You are a Flutter developer tasked with fixing bugs in an offline e-commerce application.
+
+Problem: The Unit-Test for navigating from the login page to the next page is failing. Pressing the login button should be enough.
+
+Error:
+"""
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+Actual: _TextWidgetFinder:<Found 0 widgets with text "Catalog": []>
+Which: means none were found but one was expected
+"""
+
+Code:
+"""
+testWidgets('Login page Widget test', (tester) async {
+  await tester.pumpWidget(MultiProvider(
+    providers: [
+      Provider(create: (context) => CatalogModel()),
+      ChangeNotifierProxyProvider<CatalogModel, CartModel>(
+        create: (context) => CartModel(),
+        update: (context, catalog, cart) {
+          cart!.catalog = catalog;
+          return cart;
+        },
+      ),
+    ],
+    child: MaterialApp.router(routerConfig: router()),
+  ));
+  // Verifying the behaviour of ENTER button.
+  await tester.tap(find.text('ENTER'));
+  expect(find.text('Catalog'), findsOneWidget);
+});
+"""

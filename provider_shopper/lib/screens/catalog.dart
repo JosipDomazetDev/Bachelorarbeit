@@ -43,7 +43,7 @@ class _AddButton extends StatelessWidget {
       onPressed: isInCart
           ? null
           : () {
-              var cart = context.watch<CartModel>();
+              var cart = context.read<CartModel>();
               cart.add(item);
             },
       style: ButtonStyle(

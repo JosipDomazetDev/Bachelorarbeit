@@ -116,7 +116,11 @@ class _MyListItem extends StatelessWidget {
             ),
             const SizedBox(width: 24),
             Expanded(
-              child: Text(item.name, style: textTheme),
+              child: Text(
+                item.name,
+                style: textTheme,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             const SizedBox(width: 24),
             _AddButton(item: item),

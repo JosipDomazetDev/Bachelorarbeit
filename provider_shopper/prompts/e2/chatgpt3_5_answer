@@ -1,0 +1,35 @@
+The error message "Vertical viewport was given unbounded height" typically occurs when a widget tries to render a scrollable view without any constraints on its height. In your case, it seems to be coming from the ListView in your _CartList widget. To fix this, you need to wrap your ListView with a container and provide it with a fixed height or use another widget that constrains its height.
+
+Here's the modified version of your _CartList widget with a fixed height Container:
+
+```dart
+class _CartList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var itemNameStyle = Theme.of(context).textTheme.titleLarge;
+    var cart = context.watch<CartModel>();
+
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.6, // Adjust the height as needed
+      child: ListView.builder(
+        itemCount: cart.items.length,
+        itemBuilder: (context, index) => ListTile(
+          leading: const Icon(Icons.done),
+          trailing: IconButton(
+            icon: const Icon(Icons.remove_circle_outline),
+            onPressed: () {
+              cart.remove(cart.items[index]);
+            },
+          ),
+          title: Text(
+            cart.items[index].name,
+            style: itemNameStyle,
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+Replace the height value (`MediaQuery.of(context).size.height * 0.6`) with a suitable fixed height or use a different method to constrain the height according to your UI requirements. This will prevent the "unbounded height" error and ensure that your ListView is rendered correctly within its parent container.

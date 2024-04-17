@@ -1,0 +1,62 @@
+The error "Vertical viewport was given unbounded height" occurs because the `ListView.builder` inside your `_CartList` widget can potentially grow infinitely. The parent widget, the inner `Column`, uses `Expanded` which tries to fill all available space.
+
+Here are two ways to fix this issue:
+
+**Solution 1: Wrap the ListView.builder with a container with a fixed height**
+
+This approach sets a specific height for the list, preventing it from expanding infinitely.
+
+```dart
+class _CartList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var itemNameStyle = Theme.of(context).textTheme.titleLarge;
+    var cart = context.watch<CartModel>();
+    return Container(
+      height: 200, // Set a reasonable height for your list
+      child: ListView.builder(
+        // ... rest of your ListView.builder code
+      ),
+    );
+  }
+}
+```
+
+**Solution 2: Use a SizedBox instead of Expanded**
+
+This approach defines a specific height for the inner `Column` using `SizedBox`, ensuring the `ListView.builder` doesn't have unbounded space.
+
+```dart
+class MyCart extends StatelessWidget {
+  const MyCart({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // ... rest of your Scaffold code
+      body: Container(
+        color: Colors.yellow,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 200, // Set a reasonable height for the list area
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  children: [
+                    const Text('Select an item.'),
+                    _CartList(),
+                  ],
+                ),
+              ),
+            ),
+            const Divider(height: 4, color: Colors.black),
+            _CartTotal()
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+Remember to choose a height that best suits the expected number of items in your cart and adjust it accordingly.

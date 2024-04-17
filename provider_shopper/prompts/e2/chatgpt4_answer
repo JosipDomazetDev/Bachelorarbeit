@@ -1,0 +1,49 @@
+The error you're encountering, "Vertical viewport was given unbounded height," typically occurs when a vertically scrolling widget like `ListView` is placed inside another vertically expanding widget without constraints to limit its height. In your case, the `ListView.builder` inside `_CartList` is nested within a `Column` widget that uses an `Expanded` widget, which does not provide a bounded height constraint.
+
+To fix this issue, you need to ensure that the `ListView.builder` has bounded constraints. There are a couple of ways to resolve this:
+
+1. **Use `Expanded` for `_CartList`:** Since `_CartList` contains a `ListView.builder`, you can wrap `_CartList` itself in an `Expanded` widget within the `Column` of the `MyCart` widget. This will allow the `ListView` to know its available space and avoid the unbounded height issue.
+
+Here's the adjusted part of your `MyCart` class where `_CartList` is wrapped with `Expanded`:
+
+```dart
+class MyCart extends StatelessWidget {
+  const MyCart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Cart', style: Theme.of(context).textTheme.displayLarge),
+        backgroundColor: Colors.white,
+      ),
+      body: Container(
+        color: Colors.yellow,
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  children: [
+                    const Text('Select an item.'),
+                    Expanded(  // This will give bounded constraints to the ListView.
+                      child: _CartList(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const Divider(height: 4, color: Colors.black),
+            _CartTotal()
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+2. **Revise the internal `Column` structure:** Instead of using an `Expanded` within an `Expanded`, which can be redundant and confusing, you might want to revise the internal structure to directly incorporate `_CartList` at the level you want. If `_CartList` needs to take most of the screen space, then directly applying `Expanded` to it as above is the right approach.
+
+Make sure to test these changes to ensure that they behave as expected in your application context. This should resolve the "Vertical viewport was given unbounded height" error by providing proper constraints to your `ListView.builder`.

@@ -23,7 +23,12 @@ class MyCart extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(32),
-                child: _CartList(),
+                child: Column(
+                  children: [
+                    const Text('Select an item.'),
+                    _CartList(),
+                  ],
+                ),
               ),
             ),
             const Divider(height: 4, color: Colors.black),

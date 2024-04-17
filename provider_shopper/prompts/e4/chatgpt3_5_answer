@@ -1,0 +1,43 @@
+It seems like you're experiencing a bug where the UI state doesn't update when adding an item to the shopping cart. This issue could arise due to several reasons. Let's troubleshoot step by step:
+
+1. **Check if `context.select` returns the correct value**: Ensure that `context.select<CartModel, bool>((cart) => cart.items.contains(item))` is correctly returning whether the item is already in the cart or not. You can print out `isInCart` to the console to verify this.
+
+2. **Verify `context.watch` is correctly updating the UI**: Check if `context.watch<CartModel>()` is correctly updating the UI when the cart is modified. Again, you can print out debug information to see if the `build` method is being called when the cart is modified.
+
+3. **Ensure `CartModel` is properly implemented**: Check the implementation of `CartModel` to ensure that it correctly notifies listeners when the cart is modified. Make sure you are using `notifyListeners()` after modifying the cart items.
+
+4. **Check for any other potential issues**: Look for any other parts of your code that might interfere with the UI update, such as incorrect state management or widget rebuilding.
+
+Here's an updated version of your code with some debugging statements added:
+
+```dart
+@override
+Widget build(BuildContext context) {
+  var isInCart = context.select<CartModel, bool>(
+    (cart) => cart.items.contains(item),
+  );
+  print("Is in cart: $isInCart");
+  return TextButton(
+    onPressed: isInCart
+        ? null
+        : () {
+            var cart = context.watch<CartModel>();
+            cart.add(item);
+            print("Item added to cart: $item");
+          },
+    style: ButtonStyle(
+      overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+        if (states.contains(MaterialState.pressed)) {
+          return Theme.of(context).primaryColor;
+        }
+        return null; // Defer to the widget's default.
+      }),
+    ),
+    child: isInCart
+        ? const Icon(Icons.check, semanticLabel: 'ADDED')
+        : const Text('ADD'),
+  );
+}
+```
+
+By adding print statements, you can track the flow of your code and identify where the issue might lie. If `isInCart` and `Item added to cart` are being printed correctly, then the problem might be elsewhere. If not, you need to debug further into the `CartModel` and how it's being updated.

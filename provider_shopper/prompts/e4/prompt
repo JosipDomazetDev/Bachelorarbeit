@@ -1,0 +1,32 @@
+You are a Flutter developer tasked with fixing bugs in an offline e-commerce application.
+
+Problem: Adding an item to the shopping cart does not update the UI state.
+
+Code:
+"""
+@override
+Widget build(BuildContext context) {
+  var isInCart = context.select<CartModel, bool>(
+    (cart) => cart.items.contains(item),
+  );
+  return TextButton(
+    onPressed: isInCart
+        ? null
+        : () {
+            var cart = context.watch<CartModel>();
+            cart.add(item);
+          },
+    style: ButtonStyle(
+      overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+        if (states.contains(MaterialState.pressed)) {
+          return Theme.of(context).primaryColor;
+        }
+        return null; // Defer to the widget's default.
+      }),
+    ),
+    child: isInCart
+        ? const Icon(Icons.check, semanticLabel: 'ADDED')
+        : const Text('ADD'),
+  );
+}
+"""

@@ -1,0 +1,51 @@
+The problem lies in how the UI rebuilds after adding an item to the cart. Here's how to fix it:
+
+**1. Rebuild the Widget on Cart Update:**
+
+The current code only checks the `isInCart` value during the initial build.  We need to rebuild the widget whenever the cart changes.
+
+There are two ways to achieve this:
+
+* **Using `CartModel.addListener`:**
+
+```dart
+@override
+Widget build(BuildContext context) {
+  var isInCart = context.select<CartModel, bool>(
+    (cart) => cart.items.contains(item),
+  );
+  final cart = context.watch<CartModel>();
+
+  // Add a listener to rebuild the widget on cart change
+  cart.addListener(() => setState(() {}));
+
+  return TextButton(
+    // ... rest of the code ...
+  );
+}
+```
+
+This approach uses `CartModel.addListener` to rebuild the widget whenever the cart notifies its listeners (usually after adding/removing items). However, this might be less performant for frequent changes.
+
+* **Using `Provider.select` with rebuild:**
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return Selector<CartModel, bool>(
+    selector: (context, cart) => cart.items.contains(item),
+    builder: (context, isInCart, child) {
+      // ... rest of the code using isInCart ...
+    },
+  );
+}
+```
+
+This approach uses `Provider.select` with a builder function. The builder function is automatically called whenever the selected value (`isInCart`) changes, triggering a rebuild with the updated state.
+
+**2. Consider `ChangeNotifier`:**
+
+Currently, the code doesn't show how `CartModel` manages its state. Consider using `ChangeNotifier` in `CartModel` to notify its listeners (widgets) about changes. This approach complements both methods above.
+
+
+By implementing one of these solutions, the button will update its text and icon based on the current cart state, reflecting the addition of the item.

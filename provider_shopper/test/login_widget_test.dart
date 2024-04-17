@@ -27,6 +27,7 @@ void main() {
 
     // Verifying the behaviour of ENTER button.
     await tester.tap(find.text('ENTER'));
+    await tester.pumpAndSettle();
 
     expect(find.text('Catalog'), findsOneWidget);
   });

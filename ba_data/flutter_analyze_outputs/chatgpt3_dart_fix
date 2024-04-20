@@ -1,0 +1,3 @@
+Analyzing shopping_app_chatgpt3...
+
+warning - The value of the local variable 'cartProvider' isn't used - lib\screens\product_listing_screen.dart:35:11 - unused_local_variable

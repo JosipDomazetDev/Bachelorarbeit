@@ -1,0 +1,40 @@
+Analyzing shopping_app_chatgpt3...
+
+   info - Constructors for public widgets should have a named 'key' parameter - lib\main.dart:13:7 - use_key_in_widget_constructors
+   info - The private field _cartItems could be 'final' - lib\providers\cart_provider.dart:6:17 - prefer_final_fields
+   info - Constructors for public widgets should have a named 'key' parameter - lib\screens\cart_screen.dart:7:7 - use_key_in_widget_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\cart_screen.dart:20:16 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\cart_screen.dart:22:17 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\cart_screen.dart:38:11 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\cart_screen.dart:40:22 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\cart_screen.dart:46:26 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\cart_screen.dart:51:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\cart_screen.dart:52:34 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\cart_screen.dart:56:26 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\cart_screen.dart:71:16 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\cart_screen.dart:75:15 - prefer_const_constructors
+   info - Constructors for public widgets should have a named 'key' parameter - lib\screens\login_screen.dart:3:7 - use_key_in_widget_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\login_screen.dart:8:16 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\login_screen.dart:11:18 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\login_screen.dart:15:13 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\login_screen.dart:16:20 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\login_screen.dart:17:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\login_screen.dart:19:13 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\login_screen.dart:20:13 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\login_screen.dart:21:20 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\login_screen.dart:22:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\login_screen.dart:25:13 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\login_screen.dart:30:22 - prefer_const_constructors
+   info - Constructors for public widgets should have a named 'key' parameter - lib\screens\product_listing_screen.dart:7:7 - use_key_in_widget_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\product_listing_screen.dart:12:16 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\product_listing_screen.dart:15:19 - prefer_const_constructors
+warning - The value of the local variable 'cartProvider' isn't used - lib\screens\product_listing_screen.dart:33:11 - unused_local_variable
+   info - Use 'const' with the constructor to improve performance - lib\screens\product_listing_screen.dart:43:18 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\product_listing_screen.dart:51:19 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\product_listing_screen.dart:52:19 - prefer_const_constructors
+   info - Unnecessary type annotation on a function expression parameter - test\login_page_test.dart:7:59 - avoid_types_on_closure_parameters
+   info - Use 'const' with the constructor to improve performance - test\login_page_test.dart:15:39 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - test\login_page_test.dart:16:39 - prefer_const_constructors
+   info - Unnecessary type annotation on a function expression parameter - test\product_list_page_test.dart:8:8 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\shop_cart_test.dart:6:43 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\shop_interaction_test.dart:9:50 - avoid_types_on_closure_parameters

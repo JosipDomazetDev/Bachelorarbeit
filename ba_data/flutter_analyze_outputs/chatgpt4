@@ -1,0 +1,48 @@
+Analyzing shopping_app_chatgpt4...
+
+   info - Constructors for public widgets should have a named 'key' parameter - lib\cart_page.dart:5:7 - use_key_in_widget_constructors
+   info - Use 'const' with the constructor to improve performance - lib\cart_page.dart:12:16 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\cart_page.dart:14:17 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\cart_page.dart:27:28 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\cart_page.dart:30:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\cart_page.dart:40:22 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\cart_page.dart:46:17 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\cart_page.dart:46:35 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\cart_page.dart:49:20 - prefer_const_constructors
+   info - The private field _items could be 'final' - lib\cart_provider.dart:5:24 - prefer_final_fields
+warning - Unused import: 'package:provider/provider.dart' - lib\login_page.dart:2:8 - unused_import
+   info - Constructors for public widgets should have a named 'key' parameter - lib\login_page.dart:7:7 - use_key_in_widget_constructors
+   info - Use 'const' with the constructor to improve performance - lib\login_page.dart:15:16 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\login_page.dart:24:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\login_page.dart:28:13 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\login_page.dart:31:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\login_page.dart:37:13 - prefer_const_constructors
+warning - The type argument(s) of the constructor 'MaterialPageRoute' can't be inferred - lib\login_page.dart:42:19 - inference_failure_on_instance_creation
+   info - Use 'const' with the constructor to improve performance - lib\login_page.dart:45:22 - prefer_const_constructors
+   info - Sort directive sections alphabetically - lib\main.dart:4:1 - directives_ordering
+   info - Place 'package:' imports before relative imports - lib\main.dart:5:1 - directives_ordering
+   info - Constructors for public widgets should have a named 'key' parameter - lib\main.dart:11:7 - use_key_in_widget_constructors
+   info - Sort directive sections alphabetically - lib\product_list_page.dart:5:1 - directives_ordering
+   info - Sort directive sections alphabetically - lib\product_list_page.dart:6:1 - directives_ordering
+   info - Constructors for public widgets should have a named 'key' parameter - lib\product_list_page.dart:8:7 - use_key_in_widget_constructors
+warning - The value of the local variable 'cartProvider' isn't used - lib\product_list_page.dart:11:11 - unused_local_variable
+   info - Use 'const' with the constructor to improve performance - lib\product_list_page.dart:15:16 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\product_list_page.dart:19:19 - prefer_const_constructors
+warning - The type argument(s) of the constructor 'MaterialPageRoute' can't be inferred - lib\product_list_page.dart:23:17 - inference_failure_on_instance_creation
+   info - Use 'const' with the constructor to improve performance - lib\product_list_page.dart:51:13 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\product_list_page.dart:56:16 - prefer_const_constructors
+   info - The private field _products could be 'final' - lib\product_provider.dart:5:17 - prefer_final_fields
+warning - Unused import: 'package:mockito/mockito.dart' - test\login_page_test.dart:3:8 - unused_import
+   info - Unnecessary type annotation on a function expression parameter - test\login_page_test.dart:9:66 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\product_list_page_test.dart:11:8 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\product_list_page_test.dart:26:8 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\product_list_page_test.dart:41:8 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\product_list_page_test.dart:62:8 - avoid_types_on_closure_parameters
+   info - Sort directive sections alphabetically - test\shop_cart_test.dart:2:1 - directives_ordering
+   info - Unnecessary type annotation on a function expression parameter - test\shop_cart_test.dart:11:43 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\shop_cart_test.dart:22:60 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\shop_cart_test.dart:35:56 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\shop_cart_test.dart:56:59 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\shop_interaction_test.dart:11:8 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\shop_interaction_test.dart:39:8 - avoid_types_on_closure_parameters
+   info - Unnecessary type annotation on a function expression parameter - test\shop_interaction_test.dart:62:8 - avoid_types_on_closure_parameters

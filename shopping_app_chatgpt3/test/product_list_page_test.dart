@@ -5,9 +5,9 @@ import 'package:shopping_app_chatgpt3/models/product.dart';
 
 void main() {
   testWidgets('Product list is properly displayed in ListView',
-      (WidgetTester tester) async {
+      (tester) async {
     // Build the widget tree
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
     await tester.tap(find.byType(ElevatedButton));
     await tester.pumpAndSettle();
 

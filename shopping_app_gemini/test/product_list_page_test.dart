@@ -7,12 +7,12 @@ import 'package:shopping_app_gemini/product_provider.dart';
 void main() {
   group('ProductListScreen Test', () {
     testWidgets('displays product list in ListView',
-        (WidgetTester tester) async {
+        (tester) async {
       await tester.pumpWidget(MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => ProductListProvider()),
         ],
-        child: MaterialApp(home: ProductListScreen()),
+        child: const MaterialApp(home: ProductListScreen()),
       ));
 
       expect(find.byType(ListTile), findsNWidgets(2));

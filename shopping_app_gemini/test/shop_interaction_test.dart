@@ -7,7 +7,7 @@ import 'package:shopping_app_gemini/product_provider.dart';
 void main() {
   group('ShoppingCartViewTest', () {
     testWidgets('removes product on clicking remove button',
-        (WidgetTester tester) async {
+        (tester) async {
       var productListProvider = ProductListProvider();
       productListProvider.addProduct(productListProvider.productList[0]);
 
@@ -17,7 +17,7 @@ void main() {
             return productListProvider;
           }),
         ],
-        child: MaterialApp(home: CartView()),
+        child: const MaterialApp(home: CartView()),
       ));
 
       final removeButton = find.byType(IconButton).first;

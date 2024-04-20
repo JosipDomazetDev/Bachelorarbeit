@@ -4,6 +4,8 @@ import 'cart_view.dart';
 import 'product_provider.dart';
 
 class ProductListScreen extends StatefulWidget {
+  const ProductListScreen({super.key});
+
   @override
   _ProductListScreenState createState() => _ProductListScreenState();
 }
@@ -15,13 +17,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Products'),
+        title: const Text('Products'),
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => CartView()));
+                  context, MaterialPageRoute(builder: (context) => const CartView()));
             },
           ),
         ],
@@ -38,7 +40,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             ),
             title: Text(product.name),
             trailing: IconButton(
-              icon: product.isAdded ? Icon(Icons.check) : Icon(Icons.add),
+              icon: product.isAdded ? const Icon(Icons.check) : const Icon(Icons.add),
               onPressed: () {
                 Provider.of<ProductListProvider>(context, listen: false)
                     .addProduct(product);

@@ -5,6 +5,8 @@ import 'package:shopping_app_gemini/product_model.dart';
 import 'product_provider.dart';
 
 class CartView extends StatelessWidget {
+  const CartView({super.key});
+
   double calculateTotalPrice(List<Product> products) {
     double totalPrice = 0.0;
     for (var product in products) {
@@ -20,14 +22,14 @@ class CartView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shopping Cart'),
+        title: const Text('Shopping Cart'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: productList.isEmpty
-          ? Center(child: Text('No items in the cart'))
+          ? const Center(child: Text('No items in the cart'))
           : ListView.builder(
               itemCount: productList.length,
               itemBuilder: (context, index) {
@@ -41,7 +43,7 @@ class CartView extends StatelessWidget {
                   ),
                   title: Text(product.name),
                   trailing: IconButton(
-                    icon: Icon(Icons.remove),
+                    icon: const Icon(Icons.remove),
                     onPressed: () {
                       final provider = Provider.of<ProductListProvider>(context,
                           listen: false);
@@ -53,29 +55,29 @@ class CartView extends StatelessWidget {
               },
             ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Total Price:'),
+                const Text('Total Price:'),
                 Text(
                   calculateTotalPrice(productList).toStringAsFixed(2),
                 ),
               ],
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             ElevatedButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     content: Text('Purchased'),
                   ),
                 );
               },
-              child: Text('Buy'),
+              child: const Text('Buy'),
             ),
           ],
         ),

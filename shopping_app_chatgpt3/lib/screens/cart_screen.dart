@@ -5,6 +5,8 @@ import '../models/product.dart';
 import '../providers/cart_provider.dart'; // Import the cart provider
 
 class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
@@ -17,9 +19,9 @@ class CartScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shopping Cart'),
+        title: const Text('Shopping Cart'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context); // Navigate back to the product listing view
           },
@@ -35,25 +37,25 @@ class CartScreen extends StatelessWidget {
               },
             ),
           ),
-          Divider(), // Divider to separate the product list and the total price
+          const Divider(), // Divider to separate the product list and the total price
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Total Price: \$${totalPrice.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text('Purchased'),
                       ),
                     );
                   },
-                  child: Text('Buy'),
+                  child: const Text('Buy'),
                 ),
               ],
             ),
@@ -68,11 +70,11 @@ class CartScreen extends StatelessWidget {
         listen: false); // Get the cart provider
 
     return ListTile(
-      leading: Icon(Icons.shopping_cart),
+      leading: const Icon(Icons.shopping_cart),
       // Use any icon you want to represent the product
       title: Text(product.name),
       trailing: IconButton(
-        icon: Icon(Icons.remove),
+        icon: const Icon(Icons.remove),
         onPressed: () {
           cartProvider
               .removeProductFromCart(product); // Remove product from cart

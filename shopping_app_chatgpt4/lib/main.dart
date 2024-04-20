@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app_chatgpt4/login_page.dart';
-import 'product_provider.dart';
-import 'cart_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_app_chatgpt4/login_page.dart';
+
+import 'cart_provider.dart';
+import 'product_provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: LoginPage(),
+        home: const LoginPage(),
       ),
     );
   }

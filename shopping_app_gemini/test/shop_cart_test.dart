@@ -6,12 +6,12 @@ import 'package:shopping_app_gemini/product_provider.dart';
 
 void main() {
   group('AppBarTest', () {
-    testWidgets('displays title in AppBar', (WidgetTester widgetTester) async {
+    testWidgets('displays title in AppBar', (widgetTester) async {
       await widgetTester.pumpWidget(MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => ProductListProvider()),
         ],
-        child: MaterialApp(home: ProductListScreen()),
+        child: const MaterialApp(home: ProductListScreen()),
       ));
 
       final AppBar appBar = widgetTester.firstWidget(find.byType(AppBar));

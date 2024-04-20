@@ -7,10 +7,12 @@ import 'package:shopping_app_chatgpt3/screens/login_screen.dart';
 import 'package:shopping_app_chatgpt3/screens/product_listing_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -22,9 +24,9 @@ class MyApp extends StatelessWidget {
         title: 'Your App Name',
         initialRoute: '/',
         routes: {
-          '/': (context) => LoginScreen(),
-          '/productListing': (context) => ProductListingScreen(),
-          '/cart': (context) => CartScreen(),
+          '/': (context) => const LoginScreen(),
+          '/productListing': (context) => const ProductListingScreen(),
+          '/cart': (context) => const CartScreen(),
           // Add the route for the cart screen
         },
       ),

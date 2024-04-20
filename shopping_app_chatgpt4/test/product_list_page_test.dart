@@ -8,13 +8,13 @@ import 'package:shopping_app_chatgpt4/product_provider.dart';
 void main() {
   testWidgets(
       'Verify that the product list is properly displayed in a ListView',
-      (WidgetTester tester) async {
+      (tester) async {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
       ],
-      child: MaterialApp(home: ProductListPage()),
+      child: const MaterialApp(home: ProductListPage()),
     ));
 
     // Verify all products are loaded into the ListView
@@ -23,13 +23,13 @@ void main() {
   });
 
   testWidgets('Check the layout of each item in the product list',
-      (WidgetTester tester) async {
+      (tester) async {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
       ],
-      child: MaterialApp(home: ProductListPage()),
+      child: const MaterialApp(home: ProductListPage()),
     ));
 
     // Verify the layout of list items
@@ -38,7 +38,7 @@ void main() {
   });
 
   testWidgets('Test adding a product to the shopping cart',
-      (WidgetTester tester) async {
+      (tester) async {
     final cartProvider = CartProvider();
     await tester.pumpWidget(
       MultiProvider(
@@ -46,7 +46,7 @@ void main() {
           ChangeNotifierProvider(create: (_) => ProductProvider()),
           ChangeNotifierProvider(create: (_) => cartProvider),
         ],
-        child: MaterialApp(home: ProductListPage()),
+        child: const MaterialApp(home: ProductListPage()),
       ),
     );
 
@@ -59,14 +59,14 @@ void main() {
   });
 
   testWidgets('Verify UI updates after adding a product to the cart',
-      (WidgetTester tester) async {
+      (tester) async {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => ProductProvider()),
           ChangeNotifierProvider(create: (_) => CartProvider()),
         ],
-        child: MaterialApp(home: ProductListPage()),
+        child: const MaterialApp(home: ProductListPage()),
       ),
     );
 

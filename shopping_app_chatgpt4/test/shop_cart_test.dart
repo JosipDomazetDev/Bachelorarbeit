@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app_chatgpt4/cart_page.dart';
 import 'package:shopping_app_chatgpt4/cart_provider.dart';
@@ -8,31 +8,31 @@ import 'package:shopping_app_chatgpt4/product_list_page.dart';
 import 'package:shopping_app_chatgpt4/product_provider.dart';
 
 void main() {
-  testWidgets('AppBar title is correct', (WidgetTester tester) async {
+  testWidgets('AppBar title is correct', (tester) async {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
       ],
-      child: MaterialApp(home: ProductListPage()),
+      child: const MaterialApp(home: ProductListPage()),
     ));
     expect(find.text('Products'), findsOneWidget);
   });
 
-  testWidgets('Shopping cart button opens the cart view', (WidgetTester tester) async {
+  testWidgets('Shopping cart button opens the cart view', (tester) async {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
       ],
-      child: MaterialApp(home: ProductListPage()),
+      child: const MaterialApp(home: ProductListPage()),
     ));
     await tester.tap(find.byKey(const ValueKey('cartButton')));
     await tester.pumpAndSettle(); // Allow navigation to complete
     expect(find.text('Your Cart'), findsOneWidget);
   });
 
-  testWidgets('Shopping cart view layout is correct', (WidgetTester tester) async {
+  testWidgets('Shopping cart view layout is correct', (tester) async {
     // Assuming that CartProvider and CartPage are properly set up and integrated
     var cartProvider = CartProvider();
     await tester.pumpWidget(MultiProvider(
@@ -42,7 +42,7 @@ void main() {
           return cartProvider;
         }),
       ],
-      child: MaterialApp(home: CartPage()),
+      child: const MaterialApp(home: CartPage()),
     ));
 
     cartProvider.addProduct(Product(id: '1', name: 'Product 1', price: 10.0, imageUrl: ''));
@@ -53,13 +53,13 @@ void main() {
     expect(find.byIcon(Icons.remove_circle_outline), findsWidgets);
   });
 
-  testWidgets('Back button in shopping cart view works', (WidgetTester tester) async {
+  testWidgets('Back button in shopping cart view works', (tester) async {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
       ],
-      child: MaterialApp(home: ProductListPage()),
+      child: const MaterialApp(home: ProductListPage()),
     ));
     await tester.tap(find.text("Add").first);
     await tester.pumpAndSettle();

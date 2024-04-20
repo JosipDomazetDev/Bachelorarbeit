@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'product.dart';
 
 class ProductProvider with ChangeNotifier {
-  List<Product> _products = [
+  final List<Product> _products = [
     Product(
       id: '1',
       name: 'iPhone 12',

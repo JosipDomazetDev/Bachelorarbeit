@@ -2,34 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app_gemini/product_list_screen.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Username',
               ),
             ),
-            SizedBox(height: 16.0),
-            TextField(
+            const SizedBox(height: 16.0),
+            const TextField(
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProductListScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductListScreen()));
               },
-              child: Text('Login'),
+              child: const Text('Login'),
             ),
           ],
         ),

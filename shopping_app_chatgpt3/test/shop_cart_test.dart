@@ -3,9 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shopping_app_chatgpt3/main.dart';
 
 void main() {
-  testWidgets('AppBar title is correct', (WidgetTester tester) async {
+  testWidgets('AppBar title is correct', (tester) async {
     // Build the widget tree
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
     await tester.tap(find.byType(ElevatedButton));
     await tester.pumpAndSettle();
 

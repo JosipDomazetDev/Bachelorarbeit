@@ -5,14 +5,16 @@ import '../models/product.dart';
 import '../providers/cart_provider.dart';
 
 class ProductListingScreen extends StatelessWidget {
+  const ProductListingScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product Listing'),
+        title: const Text('Product Listing'),
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () {
               Navigator.pushNamed(
                   context, '/cart'); // Navigate to the cart view
@@ -40,7 +42,7 @@ class ProductListingScreen extends StatelessWidget {
         height: 50,
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) {
-          return Text("Image not found");
+          return const Text("Image not found");
         },
       ),
       title: Text(product.name),
@@ -48,8 +50,8 @@ class ProductListingScreen extends StatelessWidget {
         builder: (context, cart, _) {
           return IconButton(
             icon: cart.isProductInCart(product)
-                ? Icon(Icons.check)
-                : Icon(Icons.add),
+                ? const Icon(Icons.check)
+                : const Icon(Icons.add),
             onPressed: () {
               if (!cart.isProductInCart(product)) {
                 cart.addProductToCart(product);

@@ -8,7 +8,7 @@ import 'package:shopping_app_chatgpt4/product_provider.dart';
 
 void main() {
   testWidgets('Clicking "Remove" button removes product from cart',
-      (WidgetTester tester) async {
+      (tester) async {
     // Setup a CartProvider with one item
     final cartProvider = CartProvider();
     cartProvider.addProduct(
@@ -21,7 +21,7 @@ void main() {
           return cartProvider;
         }),
       ],
-      child: MaterialApp(home: CartPage()),
+      child: const MaterialApp(home: CartPage()),
     ));
 
     // Verify the product is initially in the cart
@@ -36,7 +36,7 @@ void main() {
   });
 
   testWidgets('Total price and "Buy" button are displayed correctly',
-      (WidgetTester tester) async {
+      (tester) async {
     final cartProvider = CartProvider();
     cartProvider.addProduct(
         Product(id: '1', name: 'Product 1', imageUrl: 'url1', price: 20.00));
@@ -50,7 +50,7 @@ void main() {
           return cartProvider;
         }),
       ],
-      child: MaterialApp(home: CartPage()),
+      child: const MaterialApp(home: CartPage()),
     ));
 
     // Verify total price and buy button
@@ -59,13 +59,13 @@ void main() {
   });
 
   testWidgets('Clicking "Buy" button triggers snackbar with "Purchased"',
-      (WidgetTester tester) async {
+      (tester) async {
         await tester.pumpWidget(MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => ProductProvider()),
             ChangeNotifierProvider(create: (context) => CartProvider()),
           ],
-          child: MaterialApp(home: CartPage()),
+          child: const MaterialApp(home: CartPage()),
         ));
 
     // Simulate clicking the buy button
